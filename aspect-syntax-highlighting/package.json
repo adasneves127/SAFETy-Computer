@@ -1,0 +1,25 @@
+{
+    "name": "aspect-syntax-highlighting",
+    "displayName": "Aspect Syntax Highlighting",
+    "description": "Providing syntax for the Aspect Assembly Language.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.67.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "aspect",
+            "aliases": ["Aspect", "aspect"],
+            "extensions": [".aspect",".asph"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "aspect",
+            "scopeName": "source.aspect",
+            "path": "./syntaxes/aspect.tmLanguage.json"
+        }]
+    }
+}

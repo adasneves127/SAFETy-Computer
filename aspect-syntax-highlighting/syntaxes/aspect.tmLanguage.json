@@ -1,0 +1,78 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Aspect",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#reserved-words"
+		},
+		{
+			"include": "#numbers"
+		}
+	],
+	"repository": {
+		"numbers": {
+			"patterns": [
+				{
+					"name": "keyword.other.unit.suffix.integer.aspect",
+					"match": "#[0-9]*?\n"
+				},
+				{
+					"name": "keyword.other.unit.suffix.hexadecimal.aspect",
+					"match": "\\$[0-9a-fA-F]*?\n"
+				}]
+		},
+		"reserved-words": {
+			"patterns": [
+				{
+					"name": "entity.name.function.member.aspect",
+					"match": "\\b(a|b|x|y)\\b"
+				},{
+					"name": "storage.type.class.aspect",
+					"match": "\\b#.*\n\\b"
+				},{
+					"match": "([a-z]|[A-Z]|[0-9]).*:",
+					"name": "storage.type.class.aspect"
+				}]
+			},
+		"comments": {
+			"name": "comment.line.aspect",
+			"begin": ";",
+			"end": "\n",
+			"patterns": [{
+				"name": "punctuation.definition.comment.aspect",
+				"match": ";"
+			}	
+			]
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.aspect",
+				"match": "\\b(?i)((ld|st)(a|b|x|y))|(nop|rst|hlt|brk|ctn)|(cl(c|n|z|v|i))|(ls(l|r))|(t((a|b|x|y){2}))|(j(mp|sr|se|sn))|(b(ne|eq))|inc|dec|psh|pop|add|sub|cmp\\b"
+			},{
+				"name": "keyword.operator.aspect",
+				"match": "\\b(or|and|not)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.aspect",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.aspect",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.aspect"
+}

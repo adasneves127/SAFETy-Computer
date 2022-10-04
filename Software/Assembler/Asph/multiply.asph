@@ -1,0 +1,12 @@
+
+; This file uses registers A and B, and multipies their results. The result is stored in the A register.
+multiply:
+    psh B
+mLoop:
+
+    add a, b
+    dec B
+    bne mLoop
+
+    pop b
+    ret
