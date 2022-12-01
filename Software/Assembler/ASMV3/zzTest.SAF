@@ -1,0 +1,4 @@
+Start:
+    lda #0
+    ldx $100
+    add a x

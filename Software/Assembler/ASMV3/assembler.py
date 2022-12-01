@@ -6,6 +6,8 @@ from typing import List
 
 import assemblyDef
 
+from Exceptions import InvalidInstructionException
+
 
 class LineIdentification(Enum):
     INST = 0
@@ -13,6 +15,7 @@ class LineIdentification(Enum):
     DATA = 2
     DIRECTIVE = 3
     MACRO = 4
+    INVALID = -1
 
 
 class ISafetyAssembly(metaclass=abc.ABCMeta):
@@ -43,7 +46,7 @@ class PrePreProcessorAssembly(ISafetyAssembly):
     
     def assemble(self):
         prepreprocessed = []
-        for instruction in self.content:
+        for lineNum, instruction in enumerate(self.content):
             instruction = instruction.split(";")[0].strip()
             if not instruction:
                 continue
@@ -58,16 +61,24 @@ class PrePreProcessorAssembly(ISafetyAssembly):
             elif split_line[0].endswith(":"):
                 lineId = LineIdentification.LABEL
                 prepreprocessed.append(Line(lineId, instruction))
+            elif split_line[0].startswith("."):
+                lineId = LineIdentification.DIRECTIVE
+                prepreprocessed.append(Line(lineId, instruction))
+            elif any(x.startswith(split_line[0]) for x in assemblyDef.opCodes.keys()):
+                lineId = LineIdentification.INST
+                prepreprocessed.append(Line(lineId, instruction))
+            else:
+                raise InvalidInstructionException(instruction, lineNum)
+        
+        return PreProcessorAssembly(prepreprocessed)
+            
 
 
-# INST = 0
-# LABEL = 1
-# DATA = 2
-# DIRECTIVE = 3
+# INST
 
 
 class PreProcessorAssembly(ISafetyAssembly):
-    def __init__(self, content):
+    def __init__(self, content: List[Line]):
         self.content = content
 
     def assemble(self, *args, **kwargs):
@@ -93,7 +104,13 @@ class PreProcessorAssembly(ISafetyAssembly):
 
 class SafetyAssembler:
     def __init__(self, path):
-        self.assembly = None
+        with open(path, "r") as file:
+            content = file.readlines()
 
+        self.assembly: ISafetyAssembly = PrePreProcessorAssembly(content)
+
+    
+    def nextStage(self):
+        self.assembly = self.assembly.assemble()
 
     pass
