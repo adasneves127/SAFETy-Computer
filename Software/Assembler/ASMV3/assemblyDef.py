@@ -73,6 +73,9 @@ opCodes = {
     "clz": [0x07, 1],           #Clear Zero Flag
     "clv": [0x08, 1],           #Clear Overflow Flag
     "cli": [0x09, 1],           #Clear Interrupt Flag
+
+    "call": [0x0A, 3],          #Call Subroutine
+
     "add a a": [0x80, 1],       #Add A = A + A
     "add a b": [0x81, 1],       #Add A = A + B
     "add a x": [0x82, 1],       #Add A = A + X

@@ -12,8 +12,7 @@ class LineIdentification(Enum):
     LABEL = 1
     DATA = 2
     DIRECTIVE = 3
-    FUNC = 4
-    MACRO = 5
+    MACRO = 4
 
 
 class ISafetyAssembly(metaclass=abc.ABCMeta):
@@ -61,7 +60,10 @@ class PrePreProcessorAssembly(ISafetyAssembly):
                 prepreprocessed.append(Line(lineId, instruction))
 
 
-
+# INST = 0
+# LABEL = 1
+# DATA = 2
+# DIRECTIVE = 3
 
 
 class PreProcessorAssembly(ISafetyAssembly):
