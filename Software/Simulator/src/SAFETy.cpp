@@ -21,7 +21,11 @@ int main(int argc, char** argv){
     for(int i = 1; i < argc; i++){
         if(std::string(argv[i]) == "-h"){
             std::cout << "SAFETy Simulator\n";
-            std::cout << "Usage: SAFETy <ROM File> <RAM File> <Headers File> [-d] [-m]\n";
+            std::cout << "Usage: SAFETy [[-e] | <ROM File> <RAM File> <Headers File>] [-d] [-m]\n";
+            std::cout << "Options:\n";
+            std::cout << "\t-e\t\tInitialize the Simulator with empty memory contents\n";
+            std::cout << "\t-d\t\tEnable Debug Mode\n";
+            std::cout << "\t-m\t\tEnable Monitor Mode\n";
             return 0;
         }
         if(std::string(argv[i]) == "-m"){
@@ -30,15 +34,24 @@ int main(int argc, char** argv){
         if(std::string(argv[i]) == "-d"){
             options |= 0b00000010;
         }
+        if(std::string(argv[i]) == "-e"){
+            options |= 0b00000100;
+        }
     }
-    if(argc < 4){
+    if(argc < 4 && !(options & 0b00000100)){
         std::cout <<"\u001b[31mErr:\u001b[0m Invalid Arguments\n";
         return EXIT_FAILURE;
     }
 
-    fileNames[0] = argv[1];
-    fileNames[1] = argv[2];
-    fileNames[2] = argv[3];
+    if(!(options & 0b00000100)){
+        fileNames[0] = "/dev/null";
+        fileNames[1] = "/dev/null";
+        fileNames[2] = "/dev/null";
+    } else {
+        fileNames[0] = argv[1];
+        fileNames[1] = argv[2];
+        fileNames[2] = argv[3];
+    }
 
     _reg = new Registers();
 
