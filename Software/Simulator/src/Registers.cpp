@@ -21,12 +21,12 @@ void Register::printDebug(){
 #pragma endregion
 
 Registers::Registers(){
-    std::cout << "Registers Created!\n";
     char names[4] = {'A', 'B', 'X', 'Y'};
     for(int i = 0; i < 4; i++){
         regs[i] = new Register();
         regs[i]->initialize(names[i]);
     }
+    std::cout << "Registers Created!\n";
 }
 
 void Registers::set(int reg, unsigned char value){
