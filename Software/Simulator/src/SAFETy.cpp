@@ -43,10 +43,10 @@ int main(int argc, char** argv){
         return EXIT_FAILURE;
     }
 
-    if(!(options & 0b00000100)){
-        fileNames[0] = "/dev/null";
-        fileNames[1] = "/dev/null";
-        fileNames[2] = "/dev/null";
+    if((options & 0b00000100)){
+        fileNames[0] = (char*)"/dev/zero";
+        fileNames[1] = (char*)"/dev/zero";
+        fileNames[2] = (char*)"/dev/zero";
     } else {
         fileNames[0] = argv[1];
         fileNames[1] = argv[2];
