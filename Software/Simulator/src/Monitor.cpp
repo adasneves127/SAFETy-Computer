@@ -1,6 +1,7 @@
 #include "Monitor.h"
 #include "Memory.h"
 #include "Registers.h"
+#include "tools.h"
 
 Monitor::Monitor(){
 
@@ -36,6 +37,7 @@ void getInsAddr(char* input, char* Inst, char* addr){
             addr++;
         }
     }
+    *addr = 0;
 }
 
 void Monitor::run(){
@@ -52,7 +54,15 @@ void Monitor::run(){
         if(std::string(Inst) == "exit"){
             return;
         }
-
+        if(std::string(Inst) == "x"){
+            while(true){
+                std::cout << addr << "\n";
+                unsigned short addrJump = tools::HexStringToInt(std::string(addr));
+                std::cout << (int)addrJump << "\n";
+                this->_mem->jump(addrJump);
+                this->doInstruction();
+            }
+        }
 
     }
 }

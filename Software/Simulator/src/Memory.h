@@ -26,4 +26,5 @@ class Memory{
         uint8_t memPageL, memPageH;
         uint8_t chrToPrint;
         bool is_call;
+        uint16_t PC;
 };

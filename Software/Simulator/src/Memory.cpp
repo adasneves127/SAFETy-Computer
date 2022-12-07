@@ -71,3 +71,8 @@ uint8_t Memory::nextIns(){
     //Return the instruction
     return 0;
 }
+
+void Memory::jump(uint16_t addr){
+    //Set the PC to the address
+    PC = addr;
+}

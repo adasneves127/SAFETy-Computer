@@ -2,35 +2,44 @@ in := ./src
 out := "./bin"
 CC = clang++
 
-all: 
-	make -j4 build
-.PHONY: build
-build: SAFETy.o Registers.o Memory.o Monitor.o ALU.o Control.o
+all: $(in)/SAFETy.o $(in)/Registers.o $(in)/Memory.o $(in)/Monitor.o $(in)/ALU.o $(in)/Control.o $(in)/tools.o
 	-@mkdir bin -p
-	$(CC) -o $(out)/SAFETy ./SAFETy.o Registers.o Memory.o ALU.o Control.o Monitor.o -pthread
-	make clean
+	$(CC) -o $(out)/SAFETy $(in)/SAFETy.o $(in)/Registers.o $(in)/Memory.o $(in)/ALU.o $(in)/Control.o $(in)/Monitor.o $(in)/tools.o -pthread
 .PHONY: clean
 clean:
-	rm *.o
+	-@rm -r **/*.o
 
-SAFETy.o: $(in)/SAFETy.cpp
+$(in)/SAFETy.o: $(in)/SAFETy.cpp
 	$(CC) -c $(in)/SAFETy.cpp
+	@mv SAFETy.o $(in)/SAFETy.o
 
-Registers.o: $(in)/Registers.cpp
+$(in)/Registers.o: $(in)/Registers.cpp
 	$(CC) -c $(in)/Registers.cpp 
+	@mv Registers.o $(in)/Registers.o
 
-Memory.o: $(in)/Memory.cpp
+$(in)/Memory.o: $(in)/Memory.cpp
 	$(CC) -c $(in)/Memory.cpp
+	@mv Memory.o $(in)/Memory.o
 
-Monitor.o: $(in)/Monitor.cpp
+$(in)/Monitor.o: $(in)/Monitor.cpp
 	$(CC) -c $(in)/Monitor.cpp
+	@mv Monitor.o $(in)/Monitor.o
 
-ALU.o: $(in)/ALU.cpp
+$(in)/ALU.o: $(in)/ALU.cpp
 	$(CC) -c $(in)/ALU.cpp
+	@mv ALU.o $(in)/ALU.o
 
-Control.o: $(in)/Control.cpp
+$(in)/Control.o: $(in)/Control.cpp
 	$(CC) -c $(in)/Control.cpp
+	@mv Control.o $(in)/Control.o
 
+$(in)/tools.o: $(in)/tools.cpp
+	$(CC) -c $(in)/tools.cpp
+	@mv tools.o $(in)/tools.o
+
+.PHONY: debug
+debug: all
+	./$(out)/SAFETy -m -e
 
 
 
