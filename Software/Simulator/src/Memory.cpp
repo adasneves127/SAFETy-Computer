@@ -64,3 +64,10 @@ void Memory::loadHeaders(char* fileName){
     fread(HEADS, 1, 0x8000, heads);
     fclose(heads);
 }
+
+uint8_t Memory::nextIns(){
+    //Get the next instruction from the ROM
+    //Increment the PC
+    //Return the instruction
+    return 0;
+}

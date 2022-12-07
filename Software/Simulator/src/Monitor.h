@@ -14,4 +14,5 @@ class Monitor{
         Registers* _reg;
         ALU* _alu;
         controlUnit* _control;
+        void doInstruction();
 };

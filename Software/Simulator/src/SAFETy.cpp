@@ -5,6 +5,7 @@
 #include "Monitor.h"
 #include "ALU.h"
 #include "Control.h"
+#include <thread>
 
 Registers* _reg;
 Memory* _mem;
@@ -15,6 +16,10 @@ controlUnit* _control;
 
 unsigned char options = 0;
 char* fileNames[3];
+
+void loadRam(char* fileName);
+void loadRom(char* fileName);
+void loadHeaders(char* fileName);
 
 int main(int argc, char** argv){
 
@@ -61,10 +66,9 @@ int main(int argc, char** argv){
     _reg->printDebug();
 
     _mem = new Memory();
-
-    _mem->loadRAM(fileNames[1]);
-    _mem->loadROM(fileNames[0]);
-    _mem->loadHeaders(fileNames[2]);
+    std::thread RamThread(loadRam, fileNames[1]);
+    std::thread RomThread(loadRom, fileNames[0]);
+    std::thread HeadThread(loadHeaders, fileNames[2]);   
 
     if(options & 0b00000001){
         _mon = new Monitor();
@@ -72,4 +76,19 @@ int main(int argc, char** argv){
         _mon->run();
     }
 
+    RamThread.join();
+    RomThread.join();
+    HeadThread.join();
+    delete _reg;
+    delete _mem;
+}
+
+void loadRam(char* fileName){
+    _mem->loadRAM(fileName);
+}
+void loadRom(char* fileName){
+    _mem->loadROM(fileName);
+}
+void loadHeaders(char* fileName){
+    _mem->loadHeaders(fileName);
 }

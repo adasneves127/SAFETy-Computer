@@ -1,11 +1,16 @@
 in := ./src
 out := "./bin"
-CC = g++
+CC = clang++
 
-all: SAFETy.o Registers.o Memory.o Monitor.o ALU.o Control.o
+all: 
+	make -j4 build
+.PHONY: build
+build: SAFETy.o Registers.o Memory.o Monitor.o ALU.o Control.o
 	-@mkdir bin -p
-	$(CC) -o $(out)/SAFETy ./SAFETy.o Registers.o Memory.o ALU.o Control.o Monitor.o
-
+	$(CC) -o $(out)/SAFETy ./SAFETy.o Registers.o Memory.o ALU.o Control.o Monitor.o -pthread
+	make clean
+.PHONY: clean
+clean:
 	rm *.o
 
 SAFETy.o: $(in)/SAFETy.cpp

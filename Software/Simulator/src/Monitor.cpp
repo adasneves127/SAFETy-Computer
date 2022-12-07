@@ -13,9 +13,46 @@ void Monitor::init(Memory* _mem, Registers* _reg, ALU* _alu, controlUnit* _contr
     this->_control = _control;
 }
 
+void Monitor::doInstruction(){
+    unsigned char instruction = this->_mem->nextIns();
+    this->_control->decode(instruction);
+    this->_control->execute(instruction);
+    this->_control->printDebug();
+}
+
+void getInsAddr(char* input, char* Inst, char* addr){
+    bool isInst = true;
+    for(char* chr = input; *chr != '\0'; chr++){
+        if(*chr == ' '){
+            isInst = false;
+            *Inst = 0;
+            continue;
+        }
+        if(isInst){
+            *Inst = *chr;
+            Inst++;
+        } else {
+            *addr = *chr;
+            addr++;
+        }
+    }
+}
 
 void Monitor::run(){
+
+    std::cout << "SAFETy Monitor:";
     while(true){
+        //Machine Code Monitor
+        std::cout << "\n> ";
+        char* command = new char[256];
+        std::cin.getline(command, 256);
+        char* Inst = new char[256];
+        char* addr = new char[256];
+        getInsAddr(command, Inst, addr);
+        if(std::string(Inst) == "exit"){
+            return;
+        }
+
 
     }
 }
