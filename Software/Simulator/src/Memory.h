@@ -19,12 +19,14 @@ class Memory{
 
     private:
         uint8_t RAM[0x8000];
-        uint8_t ROM[0xFF][0xFF][0x8000];
+        uint8_t ROM[0x8000];
         uint8_t HEADS[0x8000];
         uint8_t FUNCTABLE[0x8000];
         uint8_t stackPointer, stackPage;
         uint8_t memPageL, memPageH;
         uint8_t chrToPrint;
-        bool is_call;
-        uint16_t PC;
+        void changePage();
+        char* romFile;
+        bool is_call = true;
+        unsigned short PC;
 };

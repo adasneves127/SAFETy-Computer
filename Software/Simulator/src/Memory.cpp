@@ -11,12 +11,7 @@ Memory::Memory(){
     }
 
     for(int i = 0; i < 0x8000; i++){
-        for(int j = 0; j < 255; j++){
-            for(int k = 0; k < 255; k++){
-                ROM[k][j][i] = 0;
-            }
-        }
-
+        ROM[i]= 0;
     }
     std::cout << "Memory Initialized!\n";
 }
@@ -36,7 +31,20 @@ void Memory::loadRAM(char* fileName){
     
 }
 
+void Memory::changePage(){
+    FILE* rom;
+    rom = fopen(romFile, "rb");
+    if(rom == NULL){
+        std::cout << "\u001b[31mErr:\u001b[0m Could not open ROM file\n";
+        return;
+    }
+    fseek(rom, ((memPageH * 256) + memPageL) * 0x8000, SEEK_SET);
+    fread(ROM, 1, 0x8000, rom);
+    fclose(rom);
+}
+
 void Memory::loadROM(char* fileName){
+    this->romFile = fileName;
     //Read in a binary file
     //Load it into ROM
     FILE *rom;
@@ -47,7 +55,7 @@ void Memory::loadROM(char* fileName){
     }
     for(int i = 0; i < 0xFF; i++){
         for(int j = 0; j < 0xFF; j++){
-            fread(ROM[i][j], 1, 0x8000, rom);
+            fread(ROM, 1, 0x8000, rom);
         }
     }
 }
