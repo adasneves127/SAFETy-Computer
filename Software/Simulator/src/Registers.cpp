@@ -46,3 +46,7 @@ void Registers::printDebug(){
     }
     std::cout << "\n";
 }
+
+Register* Registers::getRegister(int reg){
+    return regs[reg];
+}

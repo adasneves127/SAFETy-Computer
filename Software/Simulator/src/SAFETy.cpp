@@ -66,6 +66,11 @@ int main(int argc, char** argv){
     _reg->printDebug();
 
     _mem = new Memory();
+
+    _alu = new ALU();
+
+    _control = new controlUnit(_reg, _alu, _mem);
+
     std::thread RamThread(loadRam, fileNames[1]);
     std::thread RomThread(loadRom, fileNames[0]);
     std::thread HeadThread(loadHeaders, fileNames[2]);   

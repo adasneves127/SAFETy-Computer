@@ -18,6 +18,7 @@ class Registers{
         void set(int reg, unsigned char value);
         unsigned char get(int reg);
         void printDebug();
+        Register* getRegister(int reg);
     private:
         Register* regs[4];
 };

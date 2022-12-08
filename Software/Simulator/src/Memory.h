@@ -8,6 +8,7 @@ class Memory{
         void jump(uint16_t address);
         void load(uint16_t address, Register* RD);
         void store(uint16_t address, Register* RS);
+        void put(uint16_t address, uint8_t data);
         void push(Register* RS);
         void pop(Register* RD);
         void call(uint16_t address);
@@ -16,6 +17,8 @@ class Memory{
         void loadRAM(char* fileName);
         void loadROM(char* fileName);
         void loadHeaders(char* fileName);
+
+        uint8_t read(unsigned short address);
 
     private:
         uint8_t RAM[0x8000];

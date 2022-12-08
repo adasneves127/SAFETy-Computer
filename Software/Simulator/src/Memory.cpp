@@ -84,3 +84,24 @@ void Memory::jump(uint16_t addr){
     //Set the PC to the address
     PC = addr;
 }
+
+uint8_t Memory::read(unsigned short address){
+    //Read from the address
+    if(address > 0x8000){
+        //Read from ROM
+        return ROM[address - 0x8000];
+    } else {
+        //Read from RAM
+        return RAM[address];
+    }
+}
+
+void Memory::put(uint16_t address, uint8_t data){
+    if(address > 0x8000){
+        //Read from ROM
+        ROM[address - 0x8000] = data;
+    } else {
+        //Read from RAM
+        RAM[address] = data;
+    }
+}

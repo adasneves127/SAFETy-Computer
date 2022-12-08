@@ -51,16 +51,36 @@ void Monitor::run(){
         char* Inst = new char[256];
         char* addr = new char[256];
         getInsAddr(command, Inst, addr);
+        unsigned short address = (unsigned short)std::stoi(std::string(addr), nullptr, 16);
         if(std::string(Inst) == "exit"){
             return;
         }
         if(std::string(Inst) == "x"){
+            //Execute
+        }
+        if(std::string(Inst) == "i"){
+            //Dump
+            printf("Dumping Memory:\n");
+            printf("      00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F\n");
+            for(int i = 0; i < 16; i++){
+                printf("%04x: ", i*16 + address);
+                for(int j = 0; j < 16; j++){
+                    printf("%02x ", this->_mem->read((i*16)+j + address) );
+                }
+                printf("\n");
+            }
+        }
+        if(std::string(Inst) == "p"){
             while(true){
-                std::cout << addr << "\n";
-                unsigned short addrJump = tools::HexStringToInt(std::string(addr));
-                std::cout << (int)addrJump << "\n";
-                this->_mem->jump(addrJump);
-                this->doInstruction();
+                printf("Data: ");
+                char* data = new char[256];
+                std::cin.getline(data, 256);
+                if(std::string(data) == ""){
+                    break;
+                }
+                this->_mem->put(address, (uint8_t)std::stoi(std::string(data), nullptr, 16));
+                printf("Stored %02x at %04x\n", this->_mem->read(address), address);
+                address++;
             }
         }
 
