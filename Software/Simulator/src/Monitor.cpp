@@ -101,10 +101,66 @@ void Monitor::run(){
                 if(std::string(data) == ""){
                     break;
                 }
-                this->_mem->put(address, (uint8_t)std::stoi(std::string(data), nullptr, 16));
-                printf("Stored %02x at %04x\n", this->_mem->read(address), address);
-                address++;
+                for(char* chr = data; *chr != '\0'; chr++){
+                    if(std::string(data) == " "){
+                        continue;
+                    }
+
+                    char* dataByte = new char[3];
+                    dataByte[0] = *chr;
+                    chr++;
+                    dataByte[1] = *chr;
+                    dataByte[2] = 0;
+                    
+                    this->_mem->put(address, (uint8_t)std::stoi(std::string(dataByte), nullptr, 16));
+                    printf("Stored %02x at %04x\n", this->_mem->read(address), address);
+                    address++;
+                    
+                }
+               
             }
+        }
+        if(std::string(Inst) == "r"){
+            printf("What register do you want to set? ");
+            char* reg = new char[256];
+            std::cin.getline(reg, 256);
+            printf("What value do you want to set it to? ");
+            char* val = new char[256];
+            std::cin.getline(val, 256);
+
+            char regChar = reg[0];
+            uint16_t value = (uint16_t)std::stoi(std::string(val), nullptr, 16);
+
+            switch(regChar){
+                case 'a':
+                    this->_reg->set(0, value);
+                    break;
+                case 'b':
+                    this->_reg->set(1, value);
+                    break;
+                case 'x':
+                    this->_reg->set(2, value);
+                    break;
+                case 'y':
+                    this->_reg->set(3, value);
+                    break;
+            }
+        }
+        if(std::string(Inst) == "s"){
+            //Print the system Status
+            printf("Registers:\n");
+            printf("\tA: %02x\n", this->_reg->get(0));
+            printf("\tB: %02x\n", this->_reg->get(1));
+            printf("\tX: %02x\n", this->_reg->get(2));
+            printf("\tY: %02x\n\n", this->_reg->get(3));
+
+            printf("Flags:\n\n");
+            //
+
+            printf("Memory:\n");
+            printf("\tPC: %04x\n", this->_mem->getPC());
+            printf("\tSP: %04x\n", this->_mem->getSP());
+            
         }
         if(std::string(Inst) == "h"){
             printf("\n");
@@ -113,6 +169,7 @@ void Monitor::run(){
             printf("\ti <start>:<end> - Inspect memory from start to end\n");
             printf("\tp <address> - Put data at address\n");
             printf("\th - Help\n");
+            printf("\tr - Set registers\n");
             printf("\texit - Exit\n");
         }
 

@@ -24,6 +24,8 @@ class Memory{
 
         void reset();
 
+        uint16_t getSP() { return stackPage << 8 | stackPointer; }
+
     private:
         uint8_t RAM[0x8000];
         uint8_t ROM[0x8000];

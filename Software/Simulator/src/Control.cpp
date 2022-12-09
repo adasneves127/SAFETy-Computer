@@ -7,7 +7,7 @@ controlUnit::controlUnit(Registers* _reg, ALU* _alu, Memory* _mem){
     this->_reg = _reg;
     this->_alu = _alu;
     this->_mem = _mem;
-    instName = (char* )malloc(4 * sizeof(char));
+    instName = (char* )malloc(15 * sizeof(char));
 
     //Resets the control unit.
     this->reset();
@@ -19,6 +19,7 @@ void controlUnit::decode(uint8_t instruction){
     int rsNum = (instruction & 0b00000011);
     this->RD = this->_reg->getRegister(rdNum);
     this->RS = this->_reg->getRegister(rsNum);
+    this->GetOperands(instruction);
 }
 void controlUnit::GetOperands(uint8_t instruction){
     this->operands[0] = this->_mem->read(this->_mem->getPC() + 1);
@@ -161,9 +162,28 @@ void controlUnit::execute(uint8_t instruction){
         case 0xF8:
         case 0xFC:
             //Load Mem (Address is next two bytes)
-            sprintf(this->instName, "LD%c" , this->RD->getName());
+            sprintf(this->instName, "LD%c $%04x" , this->RD->getName(), this->operands[0] << 8 | this->operands[1]);
             this->RD->set(this->_mem->read(this->operands[0] << 8 | this->operands[1]));
             break;
+        case 0xF1:
+        case 0xF5:
+        case 0xF9:
+        case 0xFD:
+            //Load Immediate (Next byte)
+            sprintf(this->instName, "LD%c #%04x" , this->RD->getName(), this->operands[0]);
+            this->RD->set(this->operands[0]);
+            break;
+        case 0xF2:
+        case 0xF6:
+        case 0xFE:
+            //Load Mem (Address is X indexed)
+            sprintf(this->instName, "LIM %c, x" , this->RD->getName());
+            this->RD->set(this->_mem->read(this->_reg->get(3) + 0xff00));
+            break;
+        case 0xF3:
+        case 0xF7:
+            //LM (Address is XY indexed)
+            sprintf(this->instName, "LM %c, %02x%02x" , this->RD->getName(), this->_reg->get(3), this->_reg->get(4));
     }
     std::cout << "Instruction: " << this->instName << std::endl;
     _reg->printDebug();
@@ -175,8 +195,8 @@ void controlUnit::reset(){
     this->opcode = 0;
     this->RD = nullptr;
     this->RS = nullptr;
-    this->operands[0] = NULL;
-    this->operands[1] = NULL;
+    this->operands[0] = -1;
+    this->operands[1] = -1;
 }
 void controlUnit::printDebug(){}
 

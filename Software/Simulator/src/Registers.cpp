@@ -21,7 +21,7 @@ uint8_t Register::get(){
     return regVal;
 }
 void Register::printDebug(){
-    std::cout << regChr << ": " << (int)regVal;
+    printf("%c: %02X", regChr, regVal);
 }
 #pragma endregion
 
