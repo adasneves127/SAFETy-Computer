@@ -116,3 +116,23 @@ void Memory::reset(){
     //Reset the PC
     PC = 0;
 }
+
+void Memory::push(uint8_t value){
+    //Save the value to the stack
+    RAM[stackPage * 256 + stackPointer] = value;
+    stackPointer++;
+}
+
+void Memory::pop(Register* RD){
+    //Pop the value from the stack
+    //Save it to the register
+    stackPointer--;
+    RD->set(RAM[stackPage * 256 + stackPointer]);
+}
+
+uint8_t Memory::pop(){
+    //Pop the value from the stack
+    //Return it
+    stackPointer--;
+    return RAM[stackPage * 256 + stackPointer];
+}

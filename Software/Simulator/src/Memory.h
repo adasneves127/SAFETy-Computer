@@ -10,7 +10,9 @@ class Memory{
         void store(uint16_t address, Register* RS);
         void put(uint16_t address, uint8_t data);
         void push(Register* RS);
+        void push(uint8_t RS);
         void pop(Register* RD);
+        uint8_t pop();
         void call(uint16_t address);
         uint8_t nextIns();
 
