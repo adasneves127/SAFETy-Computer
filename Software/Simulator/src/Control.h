@@ -27,4 +27,5 @@ class controlUnit{
         uint8_t operands[2];
 
         uint32_t controlCodes = -1;
+        char* instName;
 };

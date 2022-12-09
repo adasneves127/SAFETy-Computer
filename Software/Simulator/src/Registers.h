@@ -8,6 +8,7 @@ class Register{
         void set(uint8_t val);
         uint8_t get();
         void printDebug();
+        char getName();
     private:
         uint8_t regVal;
         char regChr;
@@ -20,6 +21,7 @@ class Registers{
         uint8_t get(int reg);
         void printDebug();
         Register* getRegister(int reg);
+        void reset();
     private:
         Register* regs[4];
 };

@@ -15,7 +15,8 @@ void Monitor::init(Memory* _mem, Registers* _reg, ALU* _alu, controlUnit* _contr
 }
 
 void Monitor::doInstruction(){
-    uint8_t instruction = this->_mem->nextIns();
+    uint8_t instruction = this->_mem->read(this->_mem->getPC());
+    this->_mem->nextIns();
     this->_control->decode(instruction);
     this->_control->execute(instruction);
     this->_control->printDebug();
@@ -51,12 +52,15 @@ void Monitor::run(){
         char* Inst = new char[256];
         char* addr = new char[256];
         getInsAddr(command, Inst, addr);
-        if(std::string(Inst) == "exit"){
+        if(std::string(Inst) == "exit" || std::string(Inst) == "q"){
             return;
         }
         if(std::string(Inst) == "x"){
             //Execute
-            
+            //Convert address to hex
+            uint16_t address = (uint16_t)std::stoi(std::string(addr), nullptr, 16);
+            this->_mem->jump(address);
+            this->doInstruction();
         }
         if(std::string(Inst) == "i"){
             //Dump

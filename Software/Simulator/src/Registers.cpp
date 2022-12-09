@@ -9,6 +9,11 @@ Register::Register(){
 void Register::initialize(char name){
     regChr = name;
 }
+
+char Register::getName(){
+    return regChr;
+}
+
 void Register::set(uint8_t val){
     regVal = val;
 }
@@ -49,4 +54,10 @@ void Registers::printDebug(){
 
 Register* Registers::getRegister(int reg){
     return regs[reg];
+}
+
+void Registers::reset(){
+    for(int i = 0; i < 4; i++){
+        regs[i]->set(0);
+    }
 }

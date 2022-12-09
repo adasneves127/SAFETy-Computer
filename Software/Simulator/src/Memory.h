@@ -22,6 +22,8 @@ class Memory{
 
         uint16_t getPC();
 
+        void reset();
+
     private:
         uint8_t RAM[0x8000];
         uint8_t ROM[0x8000];

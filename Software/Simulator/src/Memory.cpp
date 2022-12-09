@@ -111,3 +111,8 @@ uint16_t Memory::getPC(){
     //Get the PC
     return this->PC;
 }
+
+void Memory::reset(){
+    //Reset the PC
+    PC = 0;
+}
