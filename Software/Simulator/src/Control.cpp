@@ -183,8 +183,10 @@ void controlUnit::execute(uint8_t instruction){
         case 0xF3:
         case 0xF7:
             //LM (Address is XY indexed)
-            sprintf(this->instName, "LM %c, %02x%02x" , this->RD->getName(), this->_reg->get(3), this->_reg->get(4));
-    }
+            sprintf(this->instName, "LM %c, %02x%02x", this->RD->getName(), this->_reg->get(2), this->_reg->get(3));
+            this->RD->set(this->_mem->read(this->_reg->get(2) << 8 | this->_reg->get(3)));
+            break;
+        }
     std::cout << "Instruction: " << this->instName << std::endl;
     _reg->printDebug();
 }
