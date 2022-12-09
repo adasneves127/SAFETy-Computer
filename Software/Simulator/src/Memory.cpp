@@ -85,7 +85,7 @@ void Memory::jump(uint16_t addr){
     PC = addr;
 }
 
-uint8_t Memory::read(unsigned short address){
+uint8_t Memory::read(uint16_t address){
     //Read from the address
     if(address > 0x8000){
         //Read from ROM
@@ -104,4 +104,10 @@ void Memory::put(uint16_t address, uint8_t data){
         //Read from RAM
         RAM[address] = data;
     }
+}
+
+
+uint16_t Memory::getPC(){
+    //Get the PC
+    return this->PC;
 }

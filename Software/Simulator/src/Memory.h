@@ -18,7 +18,9 @@ class Memory{
         void loadROM(char* fileName);
         void loadHeaders(char* fileName);
 
-        uint8_t read(unsigned short address);
+        uint8_t read(uint16_t address);
+
+        uint16_t getPC();
 
     private:
         uint8_t RAM[0x8000];
@@ -31,5 +33,5 @@ class Memory{
         void changePage();
         char* romFile;
         bool is_call = true;
-        unsigned short PC;
+        uint16_t PC;
 };

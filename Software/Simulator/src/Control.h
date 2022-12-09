@@ -7,14 +7,16 @@
 class controlUnit{
     public:
         controlUnit( Registers* _reg, ALU* _alu, Memory* _mem);
-        void decode(unsigned char instruction);
-        void execute(unsigned char instruction);
+        void decode(uint8_t instruction);
+        void execute(uint8_t instruction);
         void reset();
         void printDebug();
+        void GetOperands(uint8_t instruction);
+
 
     private:
-        unsigned char flags;
-        unsigned char opcode;
+        uint8_t flags;
+        uint8_t opcode;
         Register* RD;
         Register* RS;
 
@@ -22,5 +24,7 @@ class controlUnit{
         ALU* _alu;
         Memory* _mem;
 
-        unsigned int controlCodes = -1;
+        uint8_t operands[2];
+
+        uint32_t controlCodes = -1;
 };

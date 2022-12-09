@@ -9,10 +9,10 @@ Register::Register(){
 void Register::initialize(char name){
     regChr = name;
 }
-void Register::set(unsigned char val){
+void Register::set(uint8_t val){
     regVal = val;
 }
-unsigned char Register::get(){
+uint8_t Register::get(){
     return regVal;
 }
 void Register::printDebug(){
@@ -29,11 +29,11 @@ Registers::Registers(){
     std::cout << "Registers Created!\n";
 }
 
-void Registers::set(int reg, unsigned char value){
+void Registers::set(int reg, uint8_t value){
     regs[reg]->set(value);
 }
 
-unsigned char Registers::get(int reg){
+uint8_t Registers::get(int reg){
     return regs[reg]->get();
 }
 

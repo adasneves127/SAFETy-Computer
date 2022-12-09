@@ -14,7 +14,7 @@ ALU* _alu;
 controlUnit* _control;
 
 
-unsigned char options = 0;
+uint8_t options = 0;
 char* fileNames[3];
 
 void loadRam(char* fileName);

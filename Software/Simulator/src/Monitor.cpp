@@ -15,7 +15,7 @@ void Monitor::init(Memory* _mem, Registers* _reg, ALU* _alu, controlUnit* _contr
 }
 
 void Monitor::doInstruction(){
-    unsigned char instruction = this->_mem->nextIns();
+    uint8_t instruction = this->_mem->nextIns();
     this->_control->decode(instruction);
     this->_control->execute(instruction);
     this->_control->printDebug();
@@ -51,26 +51,45 @@ void Monitor::run(){
         char* Inst = new char[256];
         char* addr = new char[256];
         getInsAddr(command, Inst, addr);
-        unsigned short address = (unsigned short)std::stoi(std::string(addr), nullptr, 16);
         if(std::string(Inst) == "exit"){
             return;
         }
         if(std::string(Inst) == "x"){
             //Execute
+            
         }
         if(std::string(Inst) == "i"){
             //Dump
             printf("Dumping Memory:\n");
             printf("      00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F\n");
-            for(int i = 0; i < 16; i++){
-                printf("%04x: ", i*16 + address);
-                for(int j = 0; j < 16; j++){
-                    printf("%02x ", this->_mem->read((i*16)+j + address) );
+            //Command Format: i <start>:<end>
+            
+            std::string address = std::string(addr);
+
+            uint16_t start;
+            uint16_t end;
+
+            if(address.find(":") == std::string::npos){
+                start = (uint16_t)std::stoi(address, nullptr, 16);
+                end = start + 255;
+            } else{
+
+                start = (uint16_t)std::stoi(address.substr(0, address.find(":")), nullptr, 16);
+                end = (uint16_t)std::stoi(address.substr(address.find(":") + 1), nullptr, 16);
+            }
+            for(uint16_t i = 0; i <= end - start; i++){
+                if(i % 16 == 0){
+                    printf("%04x: ", i + start);
                 }
-                printf("\n");
+                printf("%02x ", this->_mem->read(i + start));
+                if(i % 16 == 15){
+                    printf("\n");
+                }
             }
         }
         if(std::string(Inst) == "p"){
+            uint16_t address = (uint16_t)std::stoi(std::string(addr), nullptr, 16);
+
             while(true){
                 printf("Data: ");
                 char* data = new char[256];
@@ -82,6 +101,15 @@ void Monitor::run(){
                 printf("Stored %02x at %04x\n", this->_mem->read(address), address);
                 address++;
             }
+        }
+        if(std::string(Inst) == "h"){
+            printf("\n");
+            printf("Commands:\n");
+            printf("\tx <address> - Execute instruction at address\n");
+            printf("\ti <start>:<end> - Inspect memory from start to end\n");
+            printf("\tp <address> - Put data at address\n");
+            printf("\th - Help\n");
+            printf("\texit - Exit\n");
         }
 
     }
