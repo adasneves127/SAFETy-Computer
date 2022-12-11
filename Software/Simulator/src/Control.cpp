@@ -156,6 +156,48 @@ void controlUnit::execute(uint8_t instruction){
             this-> RS->set(this->RD->get());
         break;
 
+        case 0x80:
+        case 0x81:
+        case 0x82:
+        case 0x83:
+        case 0x84:
+        case 0x85:
+        case 0x86:
+        case 0x87:
+        case 0x88:
+        case 0x89:
+        case 0x8A:
+        case 0x8B:
+        case 0x8C:
+        case 0x8D:
+        case 0x8E:
+        case 0x8F:
+            //Add Registers
+            sprintf(this->instName, "ADD %c %c", this->RD->getName(), this->RS->getName());
+            this->_alu->add(this->RD, this->RS);
+            break;
+
+        case 0x90:
+        case 0x91:
+        case 0x92:
+        case 0x93:
+        case 0x94:
+        case 0x95:
+        case 0x96:
+        case 0x97:
+        case 0x98:
+        case 0x99:
+        case 0x9A:
+        case 0x9B:
+        case 0x9C:
+        case 0x9D:
+        case 0x9E:
+        case 0x9F:
+            //Sub Registers
+            sprintf(this->instName, "SUB %c %c", this->RD->getName(), this->RS->getName());
+            this->_alu->sub(this->RD, this->RS);
+            break;
+
 
         case 0xF0:
         case 0xF4:

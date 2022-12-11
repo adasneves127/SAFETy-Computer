@@ -168,6 +168,7 @@ void Monitor::run(){
             printf("\tx <address> - Execute instruction at address\n");
             printf("\ti <start>:<end> - Inspect memory from start to end\n");
             printf("\tp <address> - Put data at address\n");
+            printf("\tg <address> - Go (Start Execution at Address)\n");
             printf("\th - Help\n");
             printf("\tr - Set registers\n");
             printf("\texit - Exit\n");
