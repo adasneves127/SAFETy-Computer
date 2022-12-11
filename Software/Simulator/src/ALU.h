@@ -14,6 +14,8 @@ class ALU{
 
         void add(Register* RD, uint8_t imm);
         void sub(Register* RD, uint8_t imm);
+        void cmp(Register* RD, uint8_t imm);
+
     private:
         uint8_t flags;
 };

@@ -23,10 +23,8 @@ void ALU::nand(Register* RD, Register* RS){
 void ALU::cmp(Register* RD, Register* RS){
     if(RD->get() == RS->get()){
         this->flags = 0;
-    } else if(RD->get() > RS->get()){
-        this->flags = 1;
     } else {
-        this->flags = 2;
+        this->flags = 1;
     }
 }
 
@@ -37,4 +35,12 @@ void ALU::add(Register* RD, uint8_t imm){
 
 void ALU::sub(Register* RD, uint8_t imm){
     RD->set(RD->get() - imm);
+}
+
+void ALU::cmp(Register* RD, uint8_t imm){
+    if(RD->get() == imm){
+        this->flags = 0;
+    } else {
+        this->flags = 1;
+    }
 }

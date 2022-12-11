@@ -136,3 +136,16 @@ uint8_t Memory::pop(){
     stackPointer--;
     return RAM[stackPage * 256 + stackPointer];
 }
+
+void Memory::store(uint16_t address, Register* RS){
+    //Store the value in the register to the address
+    if(address > 0x8000){
+        //This is a ROM Address.
+        //Normally, ROM Writing is a big no-no...
+        //However, with SAFETy, we do have some hardware registeres stored in ROM.
+        //TODO: Implement Hardware Registers (IO, Video Out).
+    } else {
+        //Read from RAM
+        RAM[address] = RS->get();
+    }
+}

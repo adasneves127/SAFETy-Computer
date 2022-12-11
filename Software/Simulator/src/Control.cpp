@@ -56,84 +56,84 @@ void controlUnit::execute(uint8_t instruction){
             break;
         case 0x05:
             //CLC
-            strcpy(this->instName, "CLC");;
+            strcpy(this->instName, "CLC");
             break;
         case 0x06:
             //MUL
-            strcpy(this->instName, "CLN");;
+            strcpy(this->instName, "CLN");
             break;
         case 0x07:
             //DIV
-            strcpy(this->instName, "CLZ");;
+            strcpy(this->instName, "CLZ");
             break;
         case 0x08:
             //AND
-            strcpy(this->instName, "CLV");;
+            strcpy(this->instName, "CLV");
             break;
         case 0x0A:
             //CALL
-            strcpy(this->instName, "CALL");;
+            strcpy(this->instName, "CALL");
             break;
         case 0x10:
         case 0x14:
         case 0x18:
         case 0x1C:
             //Rotate Left
-            strcpy(this->instName, "ROL");;
+            strcpy(this->instName, "ROL");
             break;
         case 0x11:
         case 0x15:
         case 0x19:
         case 0x1D:
             //Rotate Right
-            strcpy(this->instName, "ROR");;
+            strcpy(this->instName, "ROR");
             break;
         case 0x12:
         case 0x16:
         case 0x1A:
         case 0x1E:
             //Add Immediate
-            strcpy(this->instName, "ADD");;
+            strcpy(this->instName, "ADD");
             break;
         case 0x13:
         case 0x17:
         case 0x1B:
         case 0x1F:
             //Subtract Immediate
-            strcpy(this->instName, "SUB");;
+            strcpy(this->instName, "SUB");
             break;
         case 0x20:
         case 0x24:
         case 0x28:
         case 0x2C:
             //INC
-            strcpy(this->instName, "INC");;
+            strcpy(this->instName, "INC");
             break;
         case 0x21:
         case 0x25:
         case 0x29:
         case 0x2D:
             //DEC
-            strcpy(this->instName, "DEC");;
+            strcpy(this->instName, "DEC");
             break;
         case 0x30:
         case 0x34:
         case 0x38:
         case 0x3C:
             //POP
-            strcpy(this->instName, "POP");;
+            strcpy(this->instName, "POP");
             break;
         case 0x31:
         case 0x35:
         case 0x39:
         case 0x3D:
             //TOP -- View the top of the stack. Does not pop.
-            strcpy(this->instName, "TOP");;
+            strcpy(this->instName, "TOP");
             break;
         case 0x40:
         case 0x41:
             //Store Mem (xy indexed)
-            strcpy(this->instName, "SM");;
+            strcpy(this->instName, "SM");
             break;
         case 0x60:
         case 0x61:
@@ -198,7 +198,71 @@ void controlUnit::execute(uint8_t instruction){
             this->_alu->sub(this->RD, this->RS);
             break;
 
+        case 0xA0:
+        case 0xA1:
+        case 0xA2:
+        case 0xA3:
+        case 0xA4:
+        case 0xA5:
+        case 0xA6:
+        case 0xA7:
+        case 0xA8:
+        case 0xA9:
+        case 0xAA:
+        case 0xAB:
+        case 0xAC:
+        case 0xAD:
+        case 0xAE:
+        case 0xAF:
+            //NAND Registers
+            sprintf(this->instName, "AND %c %c", this->RD->getName(), this->RS->getName());
+            this->_alu->nand(this->RD, this->RS);
+            break;
+        case 0xB0:
+        case 0xB1:
+        case 0xB2:
+        case 0xB3:
+            //PUSH Registers
+            sprintf(this->instName, "PUSH %c", this->RD->getName());
+            this->_mem->push(this->RD);
+            break;
+        case 0xC0:
+        case 0xC1:
+        case 0xC2:
+        case 0xC3:
+            //Store Register
+            sprintf(this->instName, "ST%c $%04x", this->RD->getName(), (operands[0] << 8) | operands[1]);
+            this->_mem->store((operands[0] << 8) | operands[1], this->RD);
+        break;
 
+        case 0xD0:
+        case 0xD1:
+        case 0xD2:
+        case 0xD3:
+        case 0xD4:
+        case 0xD5:
+        case 0xD6:
+        case 0xD7:
+        case 0xD8:
+        case 0xD9:
+        case 0xDA:
+        case 0xDB:
+        case 0xDC:
+        case 0xDD:
+        case 0xDE:
+        case 0xDF:
+            //Compare Registers
+            sprintf(this->instName, "CMP %c %c", this->RD->getName(), this->RS->getName());
+            this->_alu->cmp(this->RD, this->RS);
+            break;
+        case 0xE0:
+        case 0xE4:
+        case 0xE8:
+        case 0xEC:
+            //CMP Immediate
+            sprintf(this->instName, "CMP %c %x", this->RD->getName(), this->operands[0]);
+            this->_alu->cmp(this->RD, this->operands[0]);
+            break;
         case 0xF0:
         case 0xF4:
         case 0xF8:
