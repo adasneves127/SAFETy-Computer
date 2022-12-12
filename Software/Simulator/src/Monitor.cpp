@@ -79,7 +79,7 @@ void Monitor::run(){
             } else{
 
                 start = (uint16_t)std::stoi(address.substr(0, address.find(":")), nullptr, 16);
-                end = (uint16_t)std::stoi(address.substr(address.find(":") + 1), nullptr, 16);
+                end   = (uint16_t)std::stoi(address.substr(address.find(":") + 1), nullptr, 16);
             }
             for(uint16_t i = 0; i < end - start; i++){
                 if(i % 16 == 0){
