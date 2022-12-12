@@ -75,13 +75,13 @@ void Monitor::run(){
 
             if(address.find(":") == std::string::npos){
                 start = (uint16_t)std::stoi(address, nullptr, 16);
-                end = start + 255;
+                end = start + 256;
             } else{
 
                 start = (uint16_t)std::stoi(address.substr(0, address.find(":")), nullptr, 16);
                 end = (uint16_t)std::stoi(address.substr(address.find(":") + 1), nullptr, 16);
             }
-            for(uint16_t i = 0; i <= end - start; i++){
+            for(uint16_t i = 0; i < end - start; i++){
                 if(i % 16 == 0){
                     printf("%04x: ", i + start);
                 }
