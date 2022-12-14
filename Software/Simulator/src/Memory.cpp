@@ -14,6 +14,10 @@ Memory::Memory(){
         ROM[i]= 0;
     }
     std::cout << "Memory Initialized!\n";
+
+    this->keyboardBuffer = new char[0x400];
+    this->inputIdx = this->outputIdx = 0;
+    this->LCD_screen = std::string("");
 }
 
 void Memory::loadRAM(char* fileName){
@@ -86,6 +90,21 @@ void Memory::jump(uint16_t addr){
 
 uint8_t Memory::read(uint16_t address){
     if(address == 0x7FF0){
+        if(this->inputIdx == this->outputIdx){
+            //Get more characters from the standard input
+            this->inputIdx = this->outputIdx = 0;
+            std::cin.getline(keyboardBuffer, 0x400);
+            int i = 0;
+            for(char* x = keyboardBuffer; *x != 0; x++){
+                if(x == 0){
+                    this->inputIdx = i;
+                    break;
+                } else{
+                    i++;
+                }
+            }
+        }
+        return keyboardBuffer[outputIdx++];
     }
     //Read from the address
     if(address > 0x8000){
@@ -145,11 +164,22 @@ uint8_t Memory::pop(){
 }
 
 void Memory::store(uint16_t address, Register* RS){
+
+    //Hardware Registers:
+    if(address == 0xF5ea){
+        printf("%c", RS->get());
+        return;
+    }
+    if(address == 0x7FF1){
+        this->LCD_screen.push_back((char) RS->get());
+        printf("+--------------------+\n");
+        std::cout << this->LCD_screen << "\n";
+        printf("+--------------------+\n");
+        return;
+    }
+
     //Store the value in the register to the address
     if(address > 0x8000){
-        if(address == 0xF5ea){
-            printf("%c", RS->get());
-        }
         //This is a ROM Address.
         //Normally, ROM Writing is a big no-no...
         //However, with SAFETy, we do have some hardware registeres stored in ROM.

@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "Registers.h"
+#include <string>
 #pragma once
 
 class Memory{
@@ -40,4 +41,8 @@ class Memory{
         char* romFile;
         bool is_call = true;
         uint16_t PC;
+        char* keyboardBuffer;
+        int inputIdx, outputIdx;
+
+        std::string LCD_screen;
 };

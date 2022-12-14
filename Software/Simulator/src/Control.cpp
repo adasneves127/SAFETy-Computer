@@ -2,6 +2,14 @@
 #include <string.h>
 
 
+void controlUnit::run(){
+    while(!(flags & 0b10000000)){
+        uint8_t inst = _mem->nextIns();
+        this->decode(inst);
+        this->execute(inst);
+    }
+}
+
 controlUnit::controlUnit(Registers* _reg, ALU* _alu, Memory* _mem){
     //Gives the control unit access to the registers, ALU, and memory.
     this->_reg = _reg;

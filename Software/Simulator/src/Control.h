@@ -13,6 +13,7 @@ class controlUnit{
         void printDebug();
         void GetOperands(uint8_t instruction);
         uint8_t flags;
+        void run();
 
     private:
         uint8_t* flagsptr;

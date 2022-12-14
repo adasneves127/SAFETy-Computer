@@ -6,14 +6,18 @@
 #include "ALU.h"
 #include "Control.h"
 #include <thread>
-#include "Keyboard.h"
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/select.h>
+#include <termios.h>
+
 
 Registers* _reg;
 Memory* _mem;
 Monitor* _mon;
 ALU* _alu;
 controlUnit* _control;
-Keyboard* _keeb;
 
 
 uint8_t options = 0;
@@ -63,8 +67,6 @@ int main(int argc, char** argv){
     _reg = new Registers();
 
     _reg->printDebug();
-    _keeb = new Keyboard()
-
     _reg->set(0, 14);
     _reg->printDebug();
 
@@ -76,7 +78,7 @@ int main(int argc, char** argv){
 
     std::thread RamThread(loadRam, fileNames[1]);
     std::thread RomThread(loadRom, fileNames[0]);
-    std::thread HeadThread(loadHeaders, fileNames[2]);   
+    std::thread HeadThread(loadHeaders, fileNames[2]);
 
     if(options & 0b00000001){
         _mon = new Monitor();
@@ -100,3 +102,4 @@ void loadRom(char* fileName){
 void loadHeaders(char* fileName){
     _mem->loadHeaders(fileName);
 }
+
