@@ -14,7 +14,7 @@ $(in)/SAFETy.o: $(in)/SAFETy.cpp
 	@mv SAFETy.o $(in)/SAFETy.o
 
 $(in)/Registers.o: $(in)/Registers.cpp
-	$(CC) -c $(in)/Registers.cpp 
+	$(CC) -c $(in)/Registers.cpp
 	@mv Registers.o $(in)/Registers.o
 
 $(in)/Memory.o: $(in)/Memory.cpp
@@ -42,7 +42,19 @@ debug: all
 	./$(out)/SAFETy -m -e
 
 
+.PHONY: install
+install:
+	@echo "Copying SAFETy into /usr/local/bin"
+	@cp ./bin/SAFETy /usr/local/bin
+	@echo "Creating 'man' file"
+	-@sudo mkdir /usr/local/man/man1 >> /dev/null
+	-@sudo cp SAFETy.1 /usr/local/man/man1
+	-@sudo gzip /usr/local/man/man1/SAFETy.1
+	-@sudo mandb >> /dev/null
 
-
-	
-
+.PHONY: remove
+remove:
+	@echo "Deleting SAFETy from /usr/local/bin"
+	@-rm /usr/local/bin/SAFETy
+	@echo "Removing Man File"
+	-@rm /usr/local/man/man1/SAFETy.*

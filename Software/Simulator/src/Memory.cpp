@@ -28,7 +28,6 @@ void Memory::loadRAM(char* fileName){
 
     fread(RAM, 1, 0x8000, ram);
     fclose(ram);
-    
 }
 
 void Memory::changePage(){
@@ -86,6 +85,8 @@ void Memory::jump(uint16_t addr){
 }
 
 uint8_t Memory::read(uint16_t address){
+    if(address == 0x7FF0){
+    }
     //Read from the address
     if(address > 0x8000){
         //Read from ROM
@@ -117,9 +118,15 @@ void Memory::reset(){
     PC = 0;
 }
 
-void Memory::push(uint8_t value){
+void Memory::push(uint8_t imm){
     //Save the value to the stack
-    RAM[stackPage * 256 + stackPointer] = value;
+    RAM[stackPage * 256 + stackPointer] = imm;
+    stackPointer++;
+}
+
+void Memory::push(Register* RD){
+    //Save the value to the stack
+    RAM[stackPage * 256 + stackPointer] = RD->get();
     stackPointer++;
 }
 
@@ -140,6 +147,9 @@ uint8_t Memory::pop(){
 void Memory::store(uint16_t address, Register* RS){
     //Store the value in the register to the address
     if(address > 0x8000){
+        if(address == 0xF5ea){
+            printf("%c", RS->get());
+        }
         //This is a ROM Address.
         //Normally, ROM Writing is a big no-no...
         //However, with SAFETy, we do have some hardware registeres stored in ROM.

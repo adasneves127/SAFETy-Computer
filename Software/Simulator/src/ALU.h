@@ -1,5 +1,7 @@
 #pragma once
 #include "Registers.h"
+#include <iostream>
+#include <bitset>
 
 class ALU{
 
@@ -15,7 +17,10 @@ class ALU{
         void add(Register* RD, uint8_t imm);
         void sub(Register* RD, uint8_t imm);
         void cmp(Register* RD, uint8_t imm);
+        void setFlags(uint8_t* flags);
+
+        void printDebug();
 
     private:
-        uint8_t flags;
+        uint8_t* flags;
 };

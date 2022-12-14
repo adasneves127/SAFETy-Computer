@@ -12,10 +12,10 @@ class controlUnit{
         void reset();
         void printDebug();
         void GetOperands(uint8_t instruction);
-
+        uint8_t flags;
 
     private:
-        uint8_t flags;
+        uint8_t* flagsptr;
         uint8_t opcode;
         Register* RD;
         Register* RS;

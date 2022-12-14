@@ -7,6 +7,9 @@ Monitor::Monitor(){
 
 }
 
+
+//When the monitor is initialized, we pass over some pointers to the Memory, the Registers, the ALU, and the Control unit.
+//This is because we want the monitor to have full 'purview' of the system, and it's current states.
 void Monitor::init(Memory* _mem, Registers* _reg, ALU* _alu, controlUnit* _control){
     this->_mem = _mem;
     this->_reg = _reg;
@@ -14,13 +17,24 @@ void Monitor::init(Memory* _mem, Registers* _reg, ALU* _alu, controlUnit* _contr
     this->_control = _control;
 }
 
+//Do a single instruction
 void Monitor::doInstruction(){
+    //Get the current Instruction
     uint8_t instruction = this->_mem->read(this->_mem->getPC());
+    //Increment the PC
     this->_mem->nextIns();
+
+    //Have the Control Unit decode and execute the instruction
     this->_control->decode(instruction);
     this->_control->execute(instruction);
+    //Print out the debug
     this->_control->printDebug();
 }
+
+
+//This is code that I took from my 'Operating Systems' class.
+//It takes in an instruction, and 'splits' it on a space.
+//In reality (And I will probably do this at some point) I should use the 'std::string `substring`' function.
 
 void getInsAddr(char* input, char* Inst, char* addr){
     bool isInst = true;
@@ -41,16 +55,30 @@ void getInsAddr(char* input, char* Inst, char* addr){
     *addr = 0;
 }
 
+//When we tell the monitor to run
 void Monitor::run(){
 
+    //Print out the title 'SAFETy Monitor'
     std::cout << "SAFETy Monitor:";
+
+    //Do Forever
     while(true){
         //Machine Code Monitor
+        //Print out the prompt '>'
         std::cout << "\n> ";
+
+        //Get the command from the standard input
+        //To do this, we create a char*, allocated to be 256 bytes long.
         char* command = new char[256];
+
+        //We then use cin.getline, which will get the first 256 characters on the line
         std::cin.getline(command, 256);
+
+        //We then create 2 new buffers, Inst and addr
         char* Inst = new char[256];
         char* addr = new char[256];
+
+        //We then get the 2 pieces of information.
         getInsAddr(command, Inst, addr);
         if(std::string(Inst) == "exit" || std::string(Inst) == "q"){
             return;
@@ -154,7 +182,8 @@ void Monitor::run(){
             printf("\tX: %02x\n", this->_reg->get(2));
             printf("\tY: %02x\n\n", this->_reg->get(3));
 
-            printf("Flags:\n\n");
+            printf("Flags:\n");
+            _alu->printDebug();
             //
 
             printf("Memory:\n");

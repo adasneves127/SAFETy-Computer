@@ -7,6 +7,10 @@ controlUnit::controlUnit(Registers* _reg, ALU* _alu, Memory* _mem){
     this->_reg = _reg;
     this->_alu = _alu;
     this->_mem = _mem;
+    this->flagsptr = &flags;
+    _alu->setFlags(this->flagsptr);
+
+    this->flags = 0;
     instName = (char* )malloc(15 * sizeof(char));
 
     //Resets the control unit.
@@ -45,30 +49,37 @@ void controlUnit::execute(uint8_t instruction){
         case 0x02:
             //HLT
             strcpy(this->instName, "HLT");
+            this->flags |= 0b10000000;
             break;
         case 0x03:
             //BRK
             strcpy(this->instName, "BRK");
+            this->flags |= 0b01000000;
             break;
         case 0x04:
             //CTN
             strcpy(this->instName, "CTN");
+            this->flags &= 0b10111111;
             break;
         case 0x05:
             //CLC
             strcpy(this->instName, "CLC");
+            this->flags &= 0b11111110;
             break;
         case 0x06:
             //MUL
             strcpy(this->instName, "CLN");
+            this->flags &= 0b11111101;
             break;
         case 0x07:
             //DIV
             strcpy(this->instName, "CLZ");
+            this->flags |= 0b00000010;
             break;
         case 0x08:
             //AND
             strcpy(this->instName, "CLV");
+            this->flags &= 0b11111011;
             break;
         case 0x0A:
             //CALL
@@ -276,7 +287,7 @@ void controlUnit::execute(uint8_t instruction){
         case 0xF9:
         case 0xFD:
             //Load Immediate (Next byte)
-            sprintf(this->instName, "LD%c #%04x" , this->RD->getName(), this->operands[0]);
+            sprintf(this->instName, "LD%c #%02x" , this->RD->getName(), this->operands[0]);
             this->RD->set(this->operands[0]);
             break;
         case 0xF2:

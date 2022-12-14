@@ -6,12 +6,14 @@
 #include "ALU.h"
 #include "Control.h"
 #include <thread>
+#include "Keyboard.h"
 
 Registers* _reg;
 Memory* _mem;
 Monitor* _mon;
 ALU* _alu;
 controlUnit* _control;
+Keyboard* _keeb;
 
 
 uint8_t options = 0;
@@ -61,6 +63,7 @@ int main(int argc, char** argv){
     _reg = new Registers();
 
     _reg->printDebug();
+    _keeb = new Keyboard()
 
     _reg->set(0, 14);
     _reg->printDebug();
