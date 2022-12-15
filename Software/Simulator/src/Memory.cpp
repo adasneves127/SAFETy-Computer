@@ -155,6 +155,11 @@ void Memory::pop(Register* RD){
     stackPointer--;
     RD->set(RAM[stackPage * 256 + stackPointer]);
 }
+void Memory::top(Register* RD){
+    //Pop the value from the stack
+    //Save it to the register
+    RD->set(RAM[stackPage * 256 + stackPointer-1]);
+}
 
 uint8_t Memory::pop(){
     //Pop the value from the stack

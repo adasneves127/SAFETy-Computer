@@ -113,6 +113,8 @@ void controlUnit::execute(uint8_t instruction){
         case 0x1E:
             //Add Immediate
             strcpy(this->instName, "ADD");
+            this->_alu->add(this->RD, operands[0]);
+            _mem->nextIns();
             break;
         case 0x13:
         case 0x17:
@@ -120,6 +122,8 @@ void controlUnit::execute(uint8_t instruction){
         case 0x1F:
             //Subtract Immediate
             strcpy(this->instName, "SUB");
+            this->_alu->sub(this->RD, operands[0]);
+            _mem->nextIns();
             break;
         case 0x20:
         case 0x24:
@@ -127,6 +131,7 @@ void controlUnit::execute(uint8_t instruction){
         case 0x2C:
             //INC
             strcpy(this->instName, "INC");
+            this->_alu->add(this->RD, 1);
             break;
         case 0x21:
         case 0x25:
@@ -134,6 +139,7 @@ void controlUnit::execute(uint8_t instruction){
         case 0x2D:
             //DEC
             strcpy(this->instName, "DEC");
+            this->_alu->add(this->RD, -1);
             break;
         case 0x30:
         case 0x34:
@@ -141,6 +147,7 @@ void controlUnit::execute(uint8_t instruction){
         case 0x3C:
             //POP
             strcpy(this->instName, "POP");
+            this->_mem->pop(this->RD);
             break;
         case 0x31:
         case 0x35:
@@ -148,6 +155,7 @@ void controlUnit::execute(uint8_t instruction){
         case 0x3D:
             //TOP -- View the top of the stack. Does not pop.
             strcpy(this->instName, "TOP");
+            this->_mem->top(this->RD);
             break;
         case 0x40:
         case 0x41:

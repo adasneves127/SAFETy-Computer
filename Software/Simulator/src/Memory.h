@@ -13,6 +13,7 @@ class Memory{
         void push(Register* RS);
         void push(uint8_t imm);
         void pop(Register* RD);
+        void top(Register* RD);
         uint8_t pop();
         void call(uint16_t address);
         uint8_t nextIns();
