@@ -47,10 +47,10 @@ install:
 	@echo "Copying SAFETy into /usr/local/bin"
 	@cp ./bin/SAFETy /usr/local/bin
 	@echo "Creating 'man' file"
-	-@sudo mkdir /usr/local/man/man1 >> /dev/null
-	-@sudo cp SAFETy.1 /usr/local/man/man1
-	-@sudo gzip /usr/local/man/man1/SAFETy.1
-	-@sudo mandb >> /dev/null
+	-@mkdir /usr/local/man/man1 >> /dev/null
+	-@cp SAFETy.1 /usr/local/man/man1
+	-@gzip /usr/local/man/man1/SAFETy.1
+	-@mandb >> /dev/null
 
 .PHONY: remove
 remove:
@@ -58,3 +58,4 @@ remove:
 	@-rm /usr/local/bin/SAFETy
 	@echo "Removing Man File"
 	-@rm /usr/local/man/man1/SAFETy.*
+	-@mandb >> /dev/null
