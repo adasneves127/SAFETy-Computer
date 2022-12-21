@@ -190,8 +190,17 @@ void controlUnit::execute(uint8_t instruction){
         case 0x70:
             sprintf(this->instName, "JMP %04x", this->operands[0] << 8 | this->operands[1]);
             this->_mem->jump(this->operands[0] << 8 | this->operands[1]);
+            instructionLen = 2;
             break;
-
+        case 0x71:
+            sprintf(this->instName, "JSR %04x", this->operands[0] << 8 | this->operands[1]);
+            instructionLen = -1;
+            this->_mem->JSR(this->operands[0] << 8 | this->operands[1]);
+            break;
+        case 0x72:
+            sprintf(this->instName, "RET");
+            this->_mem->RET();
+            break;
         case 0x80:
         case 0x81:
         case 0x82:

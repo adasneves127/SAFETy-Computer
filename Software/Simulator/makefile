@@ -2,9 +2,9 @@ in := ./src
 out := "./bin"
 CC = clang++
 
-all: $(in)/SAFETy.o $(in)/Registers.o $(in)/Memory.o $(in)/Monitor.o $(in)/ALU.o $(in)/Control.o $(in)/tools.o
+all: $(in)/SAFETy.o $(in)/Registers.o $(in)/Memory.o $(in)/Monitor.o $(in)/ALU.o $(in)/Control.o $(in)/tools.o $(in)/Stack.o
 	-@mkdir bin -p
-	$(CC) -o $(out)/SAFETy $(in)/SAFETy.o $(in)/Registers.o $(in)/Memory.o $(in)/ALU.o $(in)/Control.o $(in)/Monitor.o $(in)/tools.o -pthread
+	$(CC) -o $(out)/SAFETy $(in)/SAFETy.o $(in)/Registers.o $(in)/Memory.o $(in)/ALU.o $(in)/Control.o $(in)/Monitor.o $(in)/tools.o $(in)/Stack.o -pthread
 .PHONY: clean
 clean:
 	-@rm -r **/*.o
@@ -36,6 +36,10 @@ $(in)/Control.o: $(in)/Control.cpp
 $(in)/tools.o: $(in)/tools.cpp
 	$(CC) -c $(in)/tools.cpp
 	@mv tools.o $(in)/tools.o
+
+$(in)/Stack.o: $(in)/Stack.cpp
+	$(CC) -c $(in)/Stack.cpp
+	@mv Stack.o $(in)/Stack.o
 
 .PHONY: debug
 debug: all

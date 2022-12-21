@@ -1,6 +1,7 @@
 #include "Memory.h"
 #include <iostream>
 #include <fstream>
+#include "Stack.h"
 
 Memory::Memory(){
 
@@ -18,6 +19,8 @@ Memory::Memory(){
     this->keyboardBuffer = new char[0x400];
     this->inputIdx = this->outputIdx = 0;
     this->LCD_screen = std::string("");
+    //this->_sysStack = new Stack((uint16_t)0x8000);
+    this->_sysStack = new Stack();
 }
 
 void Memory::loadRAM(char* fileName){
@@ -205,4 +208,18 @@ void Memory::store(uint16_t address, Register* RS){
         //Read from RAM
         RAM[address] = RS->get();
     }
+}
+
+void Memory::JSR(uint16_t addr){
+    uint8_t lower8 = this->PC & 0xFF;
+    uint8_t upper8 = (this->PC>> 8) & 0xFF;
+    this->_sysStack->push(lower8);
+    this->_sysStack->push(upper8);
+    this->jump(addr);
+}
+void Memory::RET(){
+    uint8_t upper8 = this->_sysStack->pop();
+    uint8_t lower8 = this->_sysStack->pop();
+    uint16_t addr = (upper8 << 8 ) | lower8;
+    this->jump(addr + 2);
 }

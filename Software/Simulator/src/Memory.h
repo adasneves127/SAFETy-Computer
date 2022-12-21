@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "Registers.h"
 #include <string>
+#include "Stack.h"
 #pragma once
 
 class Memory{
@@ -21,6 +22,8 @@ class Memory{
         void loadRAM(char* fileName);
         void loadROM(char* fileName);
         void loadHeaders(char* fileName);
+        void JSR(unsigned short addr);
+        void RET();
 
         uint8_t read(uint16_t address);
 
@@ -35,6 +38,7 @@ class Memory{
         uint8_t ROM[0x8000];
         uint8_t HEADS[0x8000];
         uint8_t FUNCTABLE[0x8000];
+        Stack* _sysStack;
         uint8_t stackPointer, stackPage;
         uint8_t memPageL, memPageH;
         uint8_t chrToPrint;
