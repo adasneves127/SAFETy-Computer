@@ -66,10 +66,6 @@ int main(int argc, char** argv){
 
     _reg = new Registers();
 
-    _reg->printDebug();
-    _reg->set(0, 14);
-    _reg->printDebug();
-
     _mem = new Memory();
 
     _alu = new ALU();
@@ -80,17 +76,20 @@ int main(int argc, char** argv){
     std::thread RomThread(loadRom, fileNames[0]);
     std::thread HeadThread(loadHeaders, fileNames[2]);
 
+    RamThread.join();
+    RomThread.join();
+    HeadThread.join();
+
     if(options & 0b00000001){
         _mon = new Monitor();
         _mon->init(_mem, _reg, _alu, _control);
         _mon->run();
     }
 
-    RamThread.join();
-    RomThread.join();
-    HeadThread.join();
     delete _reg;
     delete _mem;
+    delete _alu;
+    delete _control;
 }
 
 void loadRam(char* fileName){
