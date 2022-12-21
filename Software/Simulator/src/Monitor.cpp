@@ -21,14 +21,16 @@ void Monitor::init(Memory* _mem, Registers* _reg, ALU* _alu, controlUnit* _contr
 void Monitor::doInstruction(){
     //Get the current Instruction
     uint8_t instruction = this->_mem->read(this->_mem->getPC());
-    //Increment the PC
-    this->_mem->nextIns();
 
     //Have the Control Unit decode and execute the instruction
     this->_control->decode(instruction);
     this->_control->execute(instruction);
-    //Print out the debug
-    this->_control->printDebug();
+    if(isDebug){
+        this->_control->printDebug();
+        this->_reg->printDebug();
+        this->_alu->printDebug();
+    }
+
 }
 
 
@@ -201,6 +203,22 @@ void Monitor::run(){
             printf("\th - Help\n");
             printf("\tr - Set registers\n");
             printf("\texit - Exit\n");
+        }
+        if(std::string(Inst) == "g"){
+            uint16_t address = (uint16_t)std::stoi(std::string(addr), nullptr, 16);
+            this->_mem->jump(address);
+
+            while(!(this->_control->flags & 0b10000000)){
+                this->doInstruction();
+                this->_mem->nextIns();
+                for(int i = 0; i < 30000000; i++){
+                    //Wait
+                }
+            }
+        }
+        if(std::string(Inst) == "n"){
+            this->_mem->nextIns();
+            this->doInstruction();
         }
 
     }

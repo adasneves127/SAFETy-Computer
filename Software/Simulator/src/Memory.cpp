@@ -80,8 +80,16 @@ uint8_t Memory::nextIns(){
     //Get the next instruction from the ROM
     //Increment the PC
     //Return the instruction
-    return 0;
+    uint8_t ins = ROM[PC];
+    PC++;
+    return ins;
 }
+
+void Memory::enableRaw(){
+    //Enable raw mode
+    this->raw = true;
+}
+
 
 void Memory::jump(uint16_t addr){
     //Set the PC to the address
@@ -172,7 +180,11 @@ void Memory::store(uint16_t address, Register* RS){
 
     //Hardware Registers:
     if(address == 0xF5ea){
-        printf("%c", RS->get());
+        if(!this->raw){
+            printf("%c", RS->get());
+        } else {
+            printf("%02x ", RS->get() + 0x20);
+        }
         return;
     }
     if(address == 0x7FF1){

@@ -39,7 +39,7 @@ $(in)/tools.o: $(in)/tools.cpp
 
 .PHONY: debug
 debug: all
-	./$(out)/SAFETy -m -e
+	./$(out)/SAFETy -m -e -r -d
 
 
 .PHONY: install

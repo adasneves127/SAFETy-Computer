@@ -17,7 +17,7 @@ class Memory{
         uint8_t pop();
         void call(uint16_t address);
         uint8_t nextIns();
-
+        void enableRaw();
         void loadRAM(char* fileName);
         void loadROM(char* fileName);
         void loadHeaders(char* fileName);
@@ -46,4 +46,5 @@ class Memory{
         int inputIdx, outputIdx;
 
         std::string LCD_screen;
+        bool raw = true;
 };

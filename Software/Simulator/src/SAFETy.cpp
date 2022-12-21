@@ -37,6 +37,7 @@ int main(int argc, char** argv){
             std::cout << "\t-e\t\tInitialize the Simulator with empty memory contents\n";
             std::cout << "\t-d\t\tEnable Debug Mode\n";
             std::cout << "\t-m\t\tEnable Monitor Mode\n";
+            std::cout << "\t-r\t\tEnable Raw Text Mode\n";
             return 0;
         }
         if(std::string(argv[i]) == "-m"){
@@ -47,6 +48,9 @@ int main(int argc, char** argv){
         }
         if(std::string(argv[i]) == "-e"){
             options |= 0b00000100;
+        }
+        if(std::string(argv[i]) == "-r"){
+            options |= 0b00001000;
         }
     }
     if(argc < 4 && !(options & 0b00000100)){
@@ -67,6 +71,8 @@ int main(int argc, char** argv){
     _reg = new Registers();
 
     _mem = new Memory();
+    if(options & 0b00001000)
+        _mem->enableRaw();
 
     _alu = new ALU();
 
@@ -82,6 +88,7 @@ int main(int argc, char** argv){
 
     if(options & 0b00000001){
         _mon = new Monitor();
+        _mon->isDebug = (options & 0b00000010) >> 1;
         _mon->init(_mem, _reg, _alu, _control);
         _mon->run();
     }
@@ -90,6 +97,7 @@ int main(int argc, char** argv){
     delete _mem;
     delete _alu;
     delete _control;
+    delete _mon;
 }
 
 void loadRam(char* fileName){
