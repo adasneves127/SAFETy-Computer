@@ -53,7 +53,7 @@ install:
 	@echo "Creating 'man' file"
 	-@mkdir /usr/local/man/man1 >> /dev/null
 	-@cp SAFETy.1 /usr/local/man/man1
-	-@gzip /usr/local/man/man1/SAFETy.1
+	-@gzip -f /usr/local/man/man1/SAFETy.1
 	-@mandb >> /dev/null
 
 .PHONY: remove

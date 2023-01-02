@@ -71,8 +71,9 @@ int main(int argc, char** argv){
     _reg = new Registers();
 
     _mem = new Memory();
-    if(options & 0b00001000)
+    if(options & 0b00001000){
         _mem->enableRaw();
+    }
 
     _alu = new ALU();
 
@@ -90,8 +91,16 @@ int main(int argc, char** argv){
         _mon = new Monitor();
         _mon->isDebug = (options & 0b00000010) >> 1;
         _mon->init(_mem, _reg, _alu, _control);
-        _mon->run();
+        uint8_t res = _mon->run();
+        if(res == 255){
+            printf("Thank you for using SAFETy!\n");
+        }
     }
+
+    //Save the files!
+    uint8_t fileBuffer[0x8000];
+    
+
 
     delete _reg;
     delete _mem;

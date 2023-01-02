@@ -9,7 +9,7 @@ class Monitor{
         Monitor();
         int isDebug = 0;
         void init(Memory* _mem, Registers* _reg, ALU* _alu, controlUnit* _control);
-        void run();
+        uint8_t run();
     private:
         Memory* _mem;
         Registers* _reg;

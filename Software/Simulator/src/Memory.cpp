@@ -21,6 +21,7 @@ Memory::Memory(){
     this->LCD_screen = std::string("");
     //this->_sysStack = new Stack((uint16_t)0x8000);
     this->_sysStack = new Stack();
+    this->raw = false;
 }
 
 void Memory::loadRAM(char* fileName){
@@ -90,6 +91,7 @@ uint8_t Memory::nextIns(){
 
 void Memory::enableRaw(){
     //Enable raw mode
+    printf("Raw mode enabled\n");
     this->raw = true;
 }
 
@@ -183,7 +185,7 @@ void Memory::store(uint16_t address, Register* RS){
 
     //Hardware Registers:
     if(address == 0xF5ea){
-        if(!this->raw){
+        if(!(this->raw)){
             printf("%c", RS->get());
         } else {
             printf("%02x ", RS->get() + 0x20);
@@ -222,4 +224,50 @@ void Memory::RET(){
     uint8_t lower8 = this->_sysStack->pop();
     uint16_t addr = (upper8 << 8 ) | lower8;
     this->jump(addr + 2);
+}
+
+void Memory::save(char* ram, char* rom, char* heads){
+
+    FILE *ramFile;
+    ramFile = fopen(ram, "wb");
+    if(ramFile == NULL){
+        std::cout << "\u001b[31mErr:\u001b[0m Could not open RAM file\n";
+        return;
+    }
+    fwrite(RAM, 1, 0x8000, ramFile);
+    fclose(ramFile);
+
+    uint8_t ROMFILE[(unsigned int)(INT32_MAX + 1)];
+
+    FILE *romFile;
+    romFile = fopen(rom, "rb");
+    if(romFile == NULL){
+        std::cout << "\u001b[31mErr:\u001b[0m Could not open RAM file\n";
+        return;
+    }
+    fread(ROMFILE, 1, sizeof(ROMFILE), romFile);
+    fclose(romFile);
+    romFile = fopen(ram, "wb");
+    for(int i = 0; i < sizeof(ROMFILE); i+= 0x8000){
+        if(i == ((memPageH * 256) + memPageL) * 0x8000){
+            fwrite(RAM, 1, 0x8000, romFile);
+        } else{
+            fwrite(&ROMFILE[i], 1, 0x8000, romFile);
+        }
+    }
+    fclose(romFile);
+
+    FILE *headsFile;
+    headsFile = fopen(heads, "wb");
+    if(headsFile == NULL){
+        std::cout << "\u001b[31mErr:\u001b[0m Could not open RAM file\n";
+        return;
+    }
+    fwrite(&PC, 1, 2, headsFile);
+    fwrite(&stackPointer, 1, 1, headsFile);
+    fwrite(&stackPage, 1, 1, headsFile);
+    fwrite(&memPageL, 1, 1, headsFile);
+    fwrite(&memPageH, 1, 1, headsFile);
+
+
 }

@@ -58,7 +58,7 @@ void getInsAddr(char* input, char* Inst, char* addr){
 }
 
 //When we tell the monitor to run
-void Monitor::run(){
+uint8_t Monitor::run(){
 
     //Print out the title 'SAFETy Monitor'
     std::cout << "SAFETy Monitor:";
@@ -83,7 +83,7 @@ void Monitor::run(){
         //We then get the 2 pieces of information.
         getInsAddr(command, Inst, addr);
         if(std::string(Inst) == "exit" || std::string(Inst) == "q"){
-            return;
+            return 255;
         }
         if(std::string(Inst) == "x"){
             //Execute

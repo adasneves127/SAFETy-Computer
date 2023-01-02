@@ -24,6 +24,7 @@ class Memory{
         void loadHeaders(char* fileName);
         void JSR(unsigned short addr);
         void RET();
+        void save(char* ram, char* rom, char* heads);
 
         uint8_t read(uint16_t address);
 
