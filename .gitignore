@@ -1,20 +1,20 @@
-.history
-bin
-lib
-.classpath
-run.sh
-test.*
-.vscode
-Simulator/.build.sh
-machineCodeExample.txt
-a.*
-Sim
-Programs
-.DS_Store
-Hardware/~$DML Instruction Set.xlsx
-IDE
-.DS_Store
-**/*.o
 
+**/.history
+**/bin
+**/lib
+**/.classpath
+**/run.sh
+**/test.*
+**/.vscode
+**/Simulator/.build.sh
+**/machineCodeExample.txt
+**/a.*
+**/Sim
+**/Programs
+**/.DS_Store
+**/Hardware/~$DML Instruction Set.xlsx
+**/IDE
+**/.DS_Store
+**/*.o
 **/.~lock.*
 **/~$*
