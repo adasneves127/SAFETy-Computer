@@ -20,43 +20,45 @@ reservedLabels = {
 
 #These are small functions that are built into the assembler as pseudos.
 # and, or, not, and xor have been moved to <stdlogic>
-macros = {
-    # "and": [
-    #     "nand $1 $2", 
-    #     "nand $1 $1"
-    #     ],
-    # "or": [
-    #     "not $1", 
-    #     "not $2", 
-    #     "nand $1 $2"
-    #     ],
-    # "not": [
-    #     "nand $1 $1"
-    #     ],
-    # "xor": [
-    #     "push $3", 
-    #     "push $2", 
-    #     "nand $2 $2", 
-    #     "nand $2 $1", 
-    #     "nand $1 $1", 
-    #     "pop $3",
-    #     "nand $1 $3", 
-    #     "nand $1 $2", 
-    #     "pop $3"
-    #     ],
+# lsl, lsr are now just code snippets you can insert
+# pek was deemed unnecessary
+# macros = {
+#     # "and": [
+#     #     "nand $1 $2", 
+#     #     "nand $1 $1"
+#     #     ],
+#     # "or": [
+#     #     "not $1", 
+#     #     "not $2", 
+#     #     "nand $1 $2"
+#     #     ],
+#     # "not": [
+#     #     "nand $1 $1"
+#     #     ],
+#     # "xor": [
+#     #     "push $3", 
+#     #     "push $2", 
+#     #     "nand $2 $2", 
+#     #     "nand $2 $1", 
+#     #     "nand $1 $1", 
+#     #     "pop $3",
+#     #     "nand $1 $3", 
+#     #     "nand $1 $2", 
+#     #     "pop $3"
+#     #     ],
         
-    "lsl": [
-        "ROL $1", 
-         "and $1 #0xFE"],
-    "lsr": [
-        "ROR $1", 
-        "and $1 #0x7F"
-        ],
-    "pek": [
-        "POP $1", 
-        "PSH $1"
-        ],
-}
+#     "lsl": [
+#         "ROL $1", 
+#          "and $1 #0xFE"],
+#     "lsr": [
+#         "ROR $1", 
+#         "and $1 #0x7F"
+#         ],
+#     "pek": [
+#         "POP $1", 
+#         "PSH $1"
+#         ],
+# }
 
 #List of all op codes, with their lengths, and machine code conversions.
 #Should someone wish to change the op codes, they should only need to change the
@@ -73,6 +75,9 @@ opCodes = {
     "clz": [0x07, 1],           #Clear Zero Flag
     "clv": [0x08, 1],           #Clear Overflow Flag
     "cli": [0x09, 1],           #Clear Interrupt Flag
+
+    "call": [0x0A, 3],          #Call Subroutine
+
     "add a a": [0x80, 1],       #Add A = A + A
     "add a b": [0x81, 1],       #Add A = A + B
     "add a x": [0x82, 1],       #Add A = A + X
