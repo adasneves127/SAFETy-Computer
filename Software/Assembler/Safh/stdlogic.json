@@ -12,21 +12,34 @@
             "pop b",
             "nand a b",
             "nand a a",
-            "push a"
+            "psh a",
+            "ret"
         ],
         "stdlogicnot": [
             "pop a",
             "nand a a",
-            "push a"
+            "psh a",
+            "ret"
         ],
         "stdlogicnor": [
             "pop a",
             "pop b",
             "nand a a",
             "nand b b",
-            "nand a b"
+            "nand a b",
+            "psh a",
+            "ret"
         ],
         "stdlogicxor": [],
-        "stdlogicor": []
+        "stdlogicor": [
+            "pop a",
+            "pop b",
+            "nand a a",
+            "nand b b",
+            "nand a b",
+            "nand a a",
+            "psh a",
+            "ret"
+        ]
     }
 }
