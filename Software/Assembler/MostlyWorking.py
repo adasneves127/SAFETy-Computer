@@ -4,11 +4,12 @@ from multipledispatch import dispatch  # Function Overloading
 from typing import List  # Type hints
 import json
 
-headerPath = "/home/adasneves/Desktop/src/SAFETy-Computer/Software/Assembler/Safh"
+
 
 # Global Includes Directory
 includeFiles = []
 headerLines = {}
+headerPath = ""
 
 
 # This is a basic class to hold labels.
@@ -457,11 +458,11 @@ def decode(ins: str):
 
 
 def main(argc: int, argv: List[str]):
+    global settings
+    print(settings)
     # Step 1: Parse the command line arguments.
     # The last item should be the input file.
     inputFile = argv[-1]
-
-    inputFile = "/home/adasneves/Desktop/src/SAFETy-Computer/Software/Assembler/test.saf"
     outputFile = inputFile + ".bin"
     options = 0
 
@@ -484,6 +485,11 @@ def main(argc: int, argv: List[str]):
     with open(inputFile, "r") as f:
         instArr: List[Instruction | Directive | Call] = []
         labelList: List[Label] = []
+        for name, addr in settings["DefaultLabels"].items():
+            labelList.append(Label(name, addr))
+        for name, addr in settings["CustomLabels"].items():
+            labelList.append(Label(name, addr))
+        
         addr: int = 0
         for line in f:
             line = line.split(";")[0]
@@ -557,6 +563,16 @@ def main(argc: int, argv: List[str]):
 
 
 if __name__ == "__main__":
+    global settings
     from sys import argv
-
+    import os 
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    settings = {}
+    try:
+        with open(f"{dir_path}/config.json", 'r') as f:
+            settings = json.load(f)
+            headerPath = settings["headerPath"]
+    except:
+        print(f"Err: config.json file not found at {dir_path}/config.json")
+        exit()
     main(len(argv), argv)
