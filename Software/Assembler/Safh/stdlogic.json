@@ -13,13 +13,13 @@
             "nand a b",
             "nand a a",
             "psh a",
-            "ret"
+            "rfc"
         ],
         "stdlogicnot": [
             "pop a",
             "nand a a",
             "psh a",
-            "ret"
+            "rfc"
         ],
         "stdlogicnor": [
             "pop a",
@@ -28,7 +28,7 @@
             "nand b b",
             "nand a b",
             "psh a",
-            "ret"
+            "rfc"
         ],
         "stdlogicxor": [],
         "stdlogicor": [
@@ -39,7 +39,7 @@
             "nand a b",
             "nand a a",
             "psh a",
-            "ret"
+            "rfc"
         ]
     }
 }

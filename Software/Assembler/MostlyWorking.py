@@ -422,6 +422,8 @@ def decodeData(ins: Instruction):
             return 0xF2 + (getReg(ins.RD) << 2)
         elif instName == "ret":
             return 0x72
+        elif instName == "rfc":
+            return 0x0b
         else:
             print(f"Error: Instruction {ins.instName} not supported!")
             exit()
