@@ -10,7 +10,7 @@ Please check what this refers to:
 
 - [ ] Hardware (EasyEDA, or other circuit-related issues)
 - [ ] Software (Assembler, Simulator, or any other code-related issue)
-- [ ] Documentation [Remove All text After this point. "Fixes Issue" should be N/A. Description will contain brief description of files changed.] 
+- [ ] Documentation [Remove All text After this point. "Fixes Issue" should be N/A. Description will contain brief description of files changed.]
 
 Please delete options that are not relevant.
 
@@ -27,12 +27,13 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] Test B
 
 **Test Configuration**:
+
 - Firmware version:
 - Hardware:
 - Toolchain:
 - SDK:
 
-# Checklist:
+## Checklist
 
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my code

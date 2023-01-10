@@ -1,0 +1,25 @@
+.\" Manpage for SAFETy.
+.\" Contact adasneves127@gmail.com to correct errors or typos.
+.TH man 1 "12 December 2022" "1.0" "SAFETy man page"
+.SH NAME
+SAFETy -- A Simulator for the SAFETy Computer, Designed by Alex Dasneves
+.SH SYNOPSIS
+SAFETy [[-e] | <ROM File> <RAM File> <Header File>] [-d] [-m]
+.SH DESCRIPTION
+SAFETy is a turing complete computer, designed by Alex Dasneves, with the help of Lyra Brown, and Dr. Margaret Black, all affiliated with Bridgewater State University.
+SAFETy is designed as an improvement on Dr. Margaret Black's RISCy Computer, which was designed as a RISC processor. Seeing the minor deficiencies with RISC, we designed SAFETy, which was
+specifically designed to implement some creature comforts.
+.SH OPTIONS
+SAFETy [[-e] | <ROM File> <RAM File> <Header File>] [-d] [-m]
+Options:
+    -e      Initialize the Sim with emptu memory
+    -d      Enable Debug Mode
+    -m      Initialize the Sim, and enter the monitor.
+    -r      Raw output mode (Print the direct hex values when writing to vid mem)
+
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Alex Dasneves (adasneves127@gmail.com)
+
+Lyra Brown (blyra05@gmail.com)

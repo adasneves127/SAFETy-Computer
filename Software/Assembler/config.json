@@ -1,0 +1,20 @@
+{
+    "headerPath": "/home/adasneves/Desktop/src/SAFETy-Computer/Software/Assembler/Safh",
+    "CustomLabels":{
+    },
+    
+
+    "DefaultLabels":{
+        "keyboard": 32752,
+        "ioa": 32753,
+        "iob": 32754,
+        "lcd": 32754,
+        "ioc": 32755,
+        "iod": 32756,
+        "ioe": 32757,
+        "iof": 32758,
+        "iog": 32759,
+        "ioh": 32760,
+        "vidout": 62954
+    }
+}
