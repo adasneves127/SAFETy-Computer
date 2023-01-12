@@ -1,0 +1,45 @@
+{
+    "translations":{
+        "stdlogic.and": "stdlogicand",
+        "stdlogic.not": "stdlogicnot",
+        "stdlogic.nor": "stdlogicnor",
+        "stdlogic.xor": "stdlogicxor",
+        "stdlogic.or":  "stdlogicor"
+    },
+    "definitions":{
+        "stdlogicand": [
+            "pop a",
+            "pop b",
+            "nand a b",
+            "nand a a",
+            "psh a",
+            "rfc"
+        ],
+        "stdlogicnot": [
+            "pop a",
+            "nand a a",
+            "psh a",
+            "rfc"
+        ],
+        "stdlogicnor": [
+            "pop a",
+            "pop b",
+            "nand a a",
+            "nand b b",
+            "nand a b",
+            "psh a",
+            "rfc"
+        ],
+        "stdlogicxor": [],
+        "stdlogicor": [
+            "pop a",
+            "pop b",
+            "nand a a",
+            "nand b b",
+            "nand a b",
+            "nand a a",
+            "psh a",
+            "rfc"
+        ]
+    }
+}
