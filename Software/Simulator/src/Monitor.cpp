@@ -1,7 +1,6 @@
 #include "Monitor.h"
 #include "Memory.h"
 #include "Registers.h"
-#include "tools.h"
 
 Monitor::Monitor(){
     

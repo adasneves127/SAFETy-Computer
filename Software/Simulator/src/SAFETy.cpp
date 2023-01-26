@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <sys/select.h>
 #include <termios.h>
+#include <stdlib.h>
 
 
 Registers* _reg;
@@ -102,11 +103,11 @@ int main(int argc, char** argv){
     
 
 
-    delete _reg;
-    delete _mem;
-    delete _alu;
-    delete _control;
-    delete _mon;
+    free(_reg);
+    free(_mem);
+    free(_alu);
+    free(_control);
+    free(_mon);
 }
 
 void loadRam(char* fileName){

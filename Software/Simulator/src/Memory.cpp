@@ -237,7 +237,7 @@ void Memory::save(char* ram, char* rom, char* heads){
     fwrite(RAM, 1, 0x8000, ramFile);
     fclose(ramFile);
 
-    uint8_t ROMFILE[(unsigned int)(INT32_MAX + 1)];
+    uint8_t ROMFILE[(unsigned int)(INT32_MAX)+1];
 
     FILE *romFile;
     romFile = fopen(rom, "rb");

@@ -1,10 +1,10 @@
 in := ./src
 out := "./bin"
-CC = clang++
+CC = g++
 
-all: $(in)/SAFETy.o $(in)/Registers.o $(in)/Memory.o $(in)/Monitor.o $(in)/ALU.o $(in)/Control.o $(in)/tools.o $(in)/Stack.o
+all: $(in)/SAFETy.o $(in)/Registers.o $(in)/Memory.o $(in)/Monitor.o $(in)/ALU.o $(in)/Control.o $(in)/Stack.o
 	-@mkdir bin -p
-	$(CC) -o $(out)/SAFETy $(in)/SAFETy.o $(in)/Registers.o $(in)/Memory.o $(in)/ALU.o $(in)/Control.o $(in)/Monitor.o $(in)/tools.o $(in)/Stack.o -pthread
+	$(CC) -o $(out)/SAFETy $(in)/SAFETy.o $(in)/Registers.o $(in)/Memory.o $(in)/ALU.o $(in)/Control.o $(in)/Monitor.o $(in)/Stack.o -pthread
 .PHONY: clean
 clean:
 	-@rm -r **/*.o
@@ -32,10 +32,6 @@ $(in)/ALU.o: $(in)/ALU.cpp
 $(in)/Control.o: $(in)/Control.cpp
 	$(CC) -c $(in)/Control.cpp
 	@mv Control.o $(in)/Control.o
-
-$(in)/tools.o: $(in)/tools.cpp
-	$(CC) -c $(in)/tools.cpp
-	@mv tools.o $(in)/tools.o
 
 $(in)/Stack.o: $(in)/Stack.cpp
 	$(CC) -c $(in)/Stack.cpp

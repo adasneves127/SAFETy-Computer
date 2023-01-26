@@ -2,7 +2,6 @@
 #include "ALU.h"
 #include "Registers.h"
 #include "Memory.h"
-#include "tools.h"
 #include <iostream>
 #include <string.h>
 
