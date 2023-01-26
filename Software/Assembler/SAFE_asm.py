@@ -1,8 +1,8 @@
 # Import all the libraries we need.
-import re  # Regex Library
-from multipledispatch import dispatch  # Function Overloading
+from multipledispatch import dispatch  # Function Overloading #type: ignore
 from typing import List  # Type hints
-import json
+from sys import stderr, argv
+import json, re, os
 
 
 
@@ -30,7 +30,7 @@ class Call:
         self.address = addr
         if data.group(2) not in includeFiles:
             print(includeFiles)
-            print(f"Error: File {data.group(2)} not included!")
+            print(f"Error: File {data.group(2)} not included!", file=stderr)
             exit()
 
         with open(f"{headerPath}/{data.group(2)}.json", 'r') as f:
@@ -58,6 +58,10 @@ class Call:
                 print(label.addr)
                 self.mem = label.addr
                 self.convert()
+    def __str__(self) -> str:
+        ret_str = f"{self.instName} {self.raw.group(3)}"
+        ret_str += " " * (13 - len(ret_str)) + f"| {' '.join([str(x) for x in self.data])}\n" 
+        return ret_str
 
         
 # This class will store infomration regaring directives, such as org, inc, and db
@@ -112,7 +116,7 @@ class Directive:
                     # If the number is too large:
                     if dataNum > 255:
                         print(
-                            f"Error: Databyte is too large! Read: {num}, expected: 0x00 - 0xFF"
+                            f"Error: Databyte is too large! Read: {num}, expected: 0x00 - 0xFF", file=stderr
                         )
                         exit()
                     # Otherwise, add it to the list, and add 1 to the length
@@ -303,7 +307,7 @@ class Instruction:
             print(
                 f"WARN: Inst {self.instName} at address {self.address} is not decoded correctly! Replaced with NOP"
             )
-            return b'\x00'
+            return b'\x00' #type: ignore
 
 
 # This function will return a number between [0-4) for the register.
@@ -317,7 +321,7 @@ def getReg(reg: str):
     elif reg == "y":
         return 0x03
     else:
-        print("Syntax Error: Invalid Register!")
+        print("Syntax Error: Invalid Register!", file=stderr)
         exit()
 
 
@@ -346,7 +350,7 @@ def decodeData(ins: Instruction):
             return 0x76
         # If the instruction cannot be found, print it, and exit.
         else:
-            print(f"Syntax Error: Invalid Memory Instruction {instName}")
+            print(f"Syntax Error: Invalid Memory Instruction {instName}", file=stderr)
             exit()
     # Otherwise, decode it if it is an immediate instruction
     elif ins.isImm == True:
@@ -357,7 +361,7 @@ def decodeData(ins: Instruction):
         elif instName[0:-1] == "ld":
             return 0xF1 + (getReg(instName[-1]) << 2)
         else:
-            print(f"Syntax Error: Invalid Immediate Instruction {instName}")
+            print(f"Syntax Error: Invalid Immediate Instruction {instName}", file=stderr)
             exit()
     # Otherwise, decode it like normal.
     else:
@@ -393,12 +397,12 @@ def decodeData(ins: Instruction):
             return 0x31 + (getReg(ins.RD) << 2)
         elif instName == "sm":
             if ins.RD == "x" or ins.RD == "y":
-                print("Syntax Error: sm can't use x or y as source!")
+                print("Syntax Error: sm can't use x or y as source!", file=stderr)
                 exit()
             return 0x40 + getReg(ins.RD)
         elif instName == "t":
             if ins.RS == ins.RD:
-                print("WARN: t with same source and destination! -> nop")
+                print("WARN: t with same source and destination! -> nop", file=stderr)
                 return 0x00
             return 0x50 + (getReg(ins.RD) << 2) + getReg(ins.RS)
         elif instName == "add":
@@ -413,12 +417,12 @@ def decodeData(ins: Instruction):
             return 0xD0 + (getReg(ins.RD) << 2) + getReg(ins.RS)
         elif instName == "lm":
             if ins.RD == "x" or ins.RD == "y":
-                print("Syntax Error: lm can't use x or y as source!")
+                print("Syntax Error: lm can't use x or y as source!", file=stderr)
                 exit()
             return 0xF3 + (getReg(ins.RD) << 2)
         elif instName == "lim":
             if ins.RD == "x":
-                print("Syntax Error: lim can't use x or y as source!")
+                print("Syntax Error: lim can't use x or y as source!", file=stderr)
                 exit()
             return 0xF2 + (getReg(ins.RD) << 2)
         elif instName == "ret":
@@ -426,14 +430,14 @@ def decodeData(ins: Instruction):
         elif instName == "rfc":
             return 0x0b
         else:
-            print(f"Error: Instruction {ins.instName} not supported!")
+            print(f"Error: Instruction {ins.instName} not supported!", file=stderr)
             exit()
 
 
 # Decode the instruction and check if it is valid.
 def decode(ins: str):
     # This regex checks to see if the instruction is valid, and if it is a register, imm, or mem instruction.
-    instructionRegex = """^((?:nop|rst|hlt|brk|ctn|clc|cln|clz|clv|cli|add|rol|ror|t|jmp|jsr|ret|jse|jsn|bne|beq|inc|dec|sub|psh|pop|(?:ld[abxy])|(?:st[abxy])|lhm|lm|sm|cmp|nand)) ?(?:(?:(?:([abxy]) ?([abxy]|#[0-9A-Fa-f]+)?)|(?:(\$|#)([0-9A-Fa-f]+?))))?$"""  # type: ignore
+    instructionRegex = """^((?:nop|rst|hlt|brk|ctn|clc|cln|clz|clv|cli|add|rol|ror|t|jmp|jsr|ret|jse|jsn|bne|beq|inc|dec|sub|psh|pop|rfc|(?:ld[abxy])|(?:st[abxy])|lhm|lm|sm|cmp|nand)) ?(?:(?:(?:([abxy]) ?([abxy]|#[0-9A-Fa-f]+)?)|(?:(\$|#)([0-9A-Fa-f]+?))))?$"""  # type: ignore
     regexResult = re.match(instructionRegex, ins)
     if regexResult is not None:
         # If the result exists, then return it.
@@ -453,7 +457,7 @@ def decode(ins: str):
     if callResult is not None:
         return (callResult, 1)
     # Otherwise, return an error.
-    print(f"Error: Instruction {ins} not supported!")
+    print(f"Error: Instruction {ins} not supported!", file=stderr)
     exit()
 
 
@@ -479,7 +483,7 @@ def main(argc: int, argv: List[str]):
     try:
         open(inputFile).close()
     except FileNotFoundError:
-        print(f"Error: File {inputFile} not found!")
+        print(f"Error: File {inputFile} not found!", file=stderr)
         exit()
 
     with open(inputFile, "r") as f:
@@ -541,6 +545,7 @@ def main(argc: int, argv: List[str]):
         for line in instArr:
             line.lblGet(labelList) if isinstance(line, Instruction) else ""
             line.lblGet(hdrLabel) if isinstance(line, Call) else ""
+        #print(headerLines)
         if options & 0b00000010 == 0:
             with open(outputFile, "bw") as f:
                 outputAddr = 0
@@ -553,7 +558,7 @@ def main(argc: int, argv: List[str]):
                     if data is not None:
                         f.write(data)
                     else:
-                        print(f"Error: data not found for inst:\n {inst}")
+                        print(f"Error: data not found for inst:\n {inst}", file=stderr)
                     outputAddr += len(inst)
         if options & 0b00000001 == 0:
             with open(outputFile + ".lst", "w") as f:
@@ -564,8 +569,6 @@ def main(argc: int, argv: List[str]):
 
 if __name__ == "__main__":
     global settings
-    from sys import argv
-    import os 
     dir_path = os.path.dirname(os.path.realpath(__file__))
     settings = {}
     try:
@@ -573,6 +576,6 @@ if __name__ == "__main__":
             settings = json.load(f)
             headerPath = settings["headerPath"]
     except:
-        print(f"Err: config.json file not found at {dir_path}/config.json")
+        print(f"Err: config.json file not found at {dir_path}/config.json", file=stderr)
         exit()
     main(len(argv), argv)
