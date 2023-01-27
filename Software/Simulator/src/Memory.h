@@ -2,6 +2,7 @@
 #include "Registers.h"
 #include <string>
 #include "Stack.h"
+#include "Control.h"
 #pragma once
 
 class Memory{
@@ -22,9 +23,10 @@ class Memory{
         void loadRAM(char* fileName);
         void loadROM(char* fileName);
         void loadHeaders(char* fileName);
-        void JSR(unsigned short addr);
+        void JSR(uint16_t addr);
         void RET();
         void save(char* ram, char* rom, char* heads);
+        void call(Registers* _reg, uint16_t addr, controlUnit* _control);
 
         uint8_t read(uint16_t address);
 
@@ -52,4 +54,5 @@ class Memory{
 
         std::string LCD_screen;
         bool raw = true;
+        uint8_t callCount = 0;
 };

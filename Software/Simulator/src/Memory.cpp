@@ -271,3 +271,7 @@ void Memory::save(char* ram, char* rom, char* heads){
 
 
 }
+
+void Memory::call(Registers* _reg, uint16_t addr, controlUnit* _control){
+    
+}
