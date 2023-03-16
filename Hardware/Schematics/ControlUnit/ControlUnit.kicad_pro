@@ -235,13 +235,11 @@
     }
   },
   "libraries": {
-    "pinned_footprint_libs": [
-      "Footprints"
-    ],
+    "pinned_footprint_libs": [],
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Power.kicad_pro",
+    "filename": "ControlUnit.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -324,8 +322,8 @@
       ""
     ],
     [
-      "8abc3728-42d0-4574-86d6-01e800ddb39d",
-      "Clock"
+      "e7e895e8-ded5-40bc-92a0-cd1456a55b26",
+      "Instruction Data"
     ]
   ],
   "text_variables": {}

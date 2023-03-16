@@ -518,6 +518,8 @@ def main(argc: int, argv: List[str]):
                 x: Call | Instruction
                 if isinstance(regexData, tuple):
                     x = Call(regexData[0], addr) #type:ignore
+                    raise NameError("Instruction CALL is not supported by the current software.")
+                    exit(-1)
                 else:
                     x = Instruction(insLine, addr)  # type: ignore
                 print(x.instName)
