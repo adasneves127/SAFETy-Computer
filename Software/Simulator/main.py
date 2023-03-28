@@ -19,6 +19,15 @@ class Register:
         self.value &= 255
         return self.value
     
+    def __and__(self, other: 'Register') -> int:
+        self.value &= other.value
+        self.value &= 255
+        return self.value
+    
+    def __not__(self) -> int:
+        self.value = -self.value
+        self.value &= 255
+        return self.value
     
     def __str__(self):
         return f"{self.name}: {self.value}"
@@ -39,12 +48,20 @@ class ALU:
         val = RD - RS
         self.isZero = (val == 0)
         return val
+    
+    def nand(self, RD: Register, RS: Register):
+        _ = (RD & RS)
+        val = not(RD)
+        self.isZero = (val == 0)
+        
+        
         
     def __str__(self):
         return f"Zero Flag: {'Set' if self.isZero else 'Not Set'}"
     
     def __repr__(self):
         return str(self)
+    
 
 
 class SAFETy:
