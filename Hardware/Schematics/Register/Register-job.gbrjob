@@ -5,17 +5,17 @@
       "Application": "Pcbnew",
       "Version": "6.0.2+dfsg-1"
     },
-    "CreationDate": "2023-03-28T11:02:59-04:00"
+    "CreationDate": "2023-03-28T11:03:39-04:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "Registers",
-      "GUID": "52656769-7374-4657-9273-2e6b69636164",
+      "Name": "Register",
+      "GUID": "52656769-7374-4657-922e-6b696361645f",
       "Revision": "rev?"
     },
     "Size": {
-      "X": 97.05,
-      "Y": 58.99
+      "X": 55.83,
+      "Y": 41.6
     },
     "LayerNumber": 2,
     "BoardThickness": 1.6,
@@ -24,55 +24,55 @@
   "DesignRules": [
     {
       "Layers": "Outer",
-      "PadToPad": 0.0,
-      "PadToTrack": 0.0,
+      "PadToPad": 0.2,
+      "PadToTrack": 0.2,
       "TrackToTrack": 0.2,
       "MinLineWidth": 0.25
     }
   ],
   "FilesAttributes": [
     {
-      "Path": "Registers-F_Cu.gbr",
+      "Path": "Register-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Registers-B_Cu.gbr",
+      "Path": "Register-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Registers-F_Paste.gbr",
+      "Path": "Register-F_Paste.gbr",
       "FileFunction": "SolderPaste,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Registers-B_Paste.gbr",
+      "Path": "Register-B_Paste.gbr",
       "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Registers-F_Silkscreen.gbr",
+      "Path": "Register-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Registers-B_Silkscreen.gbr",
+      "Path": "Register-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Registers-F_Mask.gbr",
+      "Path": "Register-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Registers-B_Mask.gbr",
+      "Path": "Register-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Registers-Edge_Cuts.gbr",
+      "Path": "Register-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }

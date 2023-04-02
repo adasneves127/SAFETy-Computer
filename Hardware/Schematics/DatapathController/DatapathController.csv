@@ -1,0 +1,38 @@
+"Source:","/home/adasneves/src/SAFETy-Computer/Hardware/Schematics/DatapathController/DatapathController.kicad_sch"
+"Date:","Mon 27 Mar 2023 11:06:45 PM EDT"
+"Tool:","Eeschema 6.0.2+dfsg-1"
+"Generator:","/usr/share/kicad/plugins/bom_csv_grouped_by_value.py"
+"Component Count:","16"
+
+"Individual Components:"
+
+"Item","Qty","Reference(s)","Value","LibPart","Footprint","Datasheet"
+"","","IMM1","Conn_01x10","Connector_Generic:Conn_01x10","Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical","~"
+"","","J1","Conn_01x10","Connector_Generic:Conn_01x10","Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical","~"
+"","","J2","Conn_01x10","Connector_Generic:Conn_01x10","Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical","~"
+"","","J3","Conn_01x10","Connector_Generic:Conn_01x10","Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical","~"
+"","","J4","Conn_01x10","Connector_Generic:Conn_01x10","Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical","~"
+"","","J5","Conn_02x05_Counter_Clockwise","Connector_Generic:Conn_02x05_Counter_Clockwise","Connector_PinSocket_2.54mm:PinSocket_2x05_P2.54mm_Vertical","~"
+"","","J6","Conn_02x05_Counter_Clockwise","Connector_Generic:Conn_02x05_Counter_Clockwise","Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Horizontal","~"
+"","","J7","Conn_02x05_Counter_Clockwise","Connector_Generic:Conn_02x05_Counter_Clockwise","Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Horizontal","~"
+"","","J8","Conn_01x06","Connector_Generic:Conn_01x06","Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical","~"
+"","","RD1","Conn_01x10","Connector_Generic:Conn_01x10","Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical","~"
+"","","U1","74LS04","74xx:74LS04","Package_DIP:DIP-14_W7.62mm_Socket_LongPads","http://www.ti.com/lit/gpn/sn74LS04"
+"","","U2","74LS245","74xx:74LS245","Package_DIP:DIP-20_W7.62mm_Socket_LongPads","http://www.ti.com/lit/gpn/sn74LS245"
+"","","U3","74LS245","74xx:74LS245","Package_DIP:DIP-20_W7.62mm_Socket_LongPads","http://www.ti.com/lit/gpn/sn74LS245"
+"","","U4","28C256","Memory_EEPROM:28C256","Package_DIP:DIP-28_W15.24mm_Socket_LongPads","http://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf"
+"","","U5","28C256","Memory_EEPROM:28C256","Package_DIP:DIP-28_W15.24mm_Socket_LongPads","http://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf"
+"","","U6","28C256","Memory_EEPROM:28C256","Package_DIP:DIP-28_W15.24mm_Socket_LongPads","http://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf"
+
+
+
+"Collated Components:"
+
+"Item","Qty","Reference(s)","Value","LibPart","Footprint","Datasheet"
+"1","6","IMM1, J1, J2, J3, J4, RD1","Conn_01x10","Connector_Generic:Conn_01x10","Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical","~"
+"2","1","J5","Conn_02x05_Counter_Clockwise","Connector_Generic:Conn_02x05_Counter_Clockwise","Connector_PinSocket_2.54mm:PinSocket_2x05_P2.54mm_Vertical","~"
+"3","2","J6, J7","Conn_02x05_Counter_Clockwise","Connector_Generic:Conn_02x05_Counter_Clockwise","Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Horizontal","~"
+"4","1","J8","Conn_01x06","Connector_Generic:Conn_01x06","Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical","~"
+"5","1","U1","74LS04","74xx:74LS04","Package_DIP:DIP-14_W7.62mm_Socket_LongPads","http://www.ti.com/lit/gpn/sn74LS04"
+"6","2","U2, U3","74LS245","74xx:74LS245","Package_DIP:DIP-20_W7.62mm_Socket_LongPads","http://www.ti.com/lit/gpn/sn74LS245"
+"7","3","U4, U5, U6","28C256","Memory_EEPROM:28C256","Package_DIP:DIP-28_W15.24mm_Socket_LongPads","http://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf"

@@ -1155,6 +1155,9 @@
   )
 
   (gr_rect (start 17.43 18.17) (end 114.38 77.06) (layer "Edge.Cuts") (width 0.1) (fill none) (tstamp a951dd51-5086-4d56-bea8-212893200763))
+  (gr_text "Designed by:\nAlex Dasneves" (at 23.622 74.93) (layer "F.SilkS") (tstamp 310e28e7-f7b1-4197-b25d-4003c7dcabae)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
 
   (segment (start 111.18 51.135) (end 103.9401 51.135) (width 0.25) (layer "F.Cu") (net 1) (tstamp 00e9772c-a0d2-42ed-8d55-08959651b446))
   (segment (start 85.8125 21.65) (end 86.3892 21.65) (width 0.25) (layer "F.Cu") (net 1) (tstamp 04a99363-beb8-4f54-991f-df9e6000fbfd))

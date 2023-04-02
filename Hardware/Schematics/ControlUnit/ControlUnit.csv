@@ -1,0 +1,13 @@
+"Id";"Designator";"Package";"Quantity";"Designation";"Supplier and ref";
+1;"U11,U10,U9";"DIP-20_W7.62mm_Socket_LongPads";3;"74LS377";;;
+2;"U8";"DIP-16_W7.62mm_Socket_LongPads";1;"74LS139";;;
+3;"U7,U6,U5,U4,U3";"DIP-28_W15.24mm_Socket_LongPads";5;"28C256";;;
+4;"U2";"DIP-16_W7.62mm_Socket_LongPads";1;"74LS161";;;
+5;"R1";"R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical";1;"R";;;
+6;"J9";"PinSocket_1x01_P2.54mm_Horizontal";1;"Conn_01x01_Female";;;
+7;"J8,J7,J3";"PinSocket_1x08_P2.54mm_Vertical";3;"Conn_01x08_Female";;;
+8;"J6";"PinSocket_1x18_P2.54mm_Vertical";1;"Conn_01x18";;;
+9;"J1";"PinSocket_1x06_P2.54mm_Vertical";1;"Conn_01x06";;;
+10;"J5,J2";"PinHeader_1x10_P2.54mm_Vertical";2;"Conn_01x10";;;
+11;"J4";"PinHeader_2x05_P2.54mm_Vertical";1;"Conn_02x05_Counter_Clockwise";;;
+12;"D4,D3,D2,D1";"LED_D3.0mm";4;"LED";;;

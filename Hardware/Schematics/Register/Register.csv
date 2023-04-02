@@ -1,0 +1,6 @@
+"Id";"Designator";"Package";"Quantity";"Designation";"Supplier and ref";
+1;"D3,D7,D4,D1,D8,D6,D5,D2";"LED_D3.0mm";8;"LED";;;
+2;"U3,U2";"DIP-20_W7.62mm_Socket_LongPads";2;"74LS245";;;
+3;"U1";"DIP-20_W7.62mm_Socket_LongPads";1;"74LS377";;;
+4;"RN1";"R_Array_SIP9";1;"R_Network08_Split";;;
+5;"J1";"PinHeader_2x15_P2.54mm_Horizontal";1;"Conn_02x15_Counter_Clockwise";;;
